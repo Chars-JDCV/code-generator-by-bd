@@ -10,43 +10,13 @@ class Manager extends ConnectionManager
     public $delete;
     public function generate()
     {
-        $retval = array(
-            "data" => false,
-            "error" => false,
-            "r" => ""
-        );
         try {
-
-            $cnx = $this->connectSqlSrv();
-            $sth = "SELECT * FROM tb_users WHERE user_name='" .$dt['user_name']."'";
-            $sth = $cnx->prepare($sth);
-            $sth->execute();
-            if ($retval["r"] = $sth->rowCount()) 
-            {
-                while ($row = $sth->fetch(PDO::FETCH_ASSOC)) 
-                {
-                    if (password_verify($dt["clean_pass"], $row["hashed_pass"])) 
-                    {
-                        $_SESSION["user_name"]=$row["user_name"];
-                        $retval["data"] = true;
-                        break;
-                    } else {
-                        $retval["data"] = false;
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                $retval["data"] = false;
-            }
+            $this->get_tables('sirdis');
         } catch (PDOExeption $e) {
-            $retval["error"] = true;
-            $retval["r"] = $e;
+            throw $e;
         }
-        return json_encode($retval);
     }
-    public function get_tables($dbname)
+    private function get_tables($dbname)
     {
         $table = array();
         try {
@@ -61,11 +31,11 @@ class Manager extends ConnectionManager
                 array_push($table, $row['TABLE_NAME']);
                 $this->get_columns($dbname,$row['TABLE_NAME']);
             }
-        } catch (Throwable $th) {
+        } catch (PDOExeption $th) {
             throw $th;
         }
     }
-    public function get_columns($dbname,$table)
+    private function get_columns($dbname,$table)
     {
         $columns = array(
             'name'=>array(),
@@ -81,41 +51,66 @@ class Manager extends ConnectionManager
                 array_push($columns['name'], $row['Field']);
                 array_push($columns['type'], $row['Type']);
             }
-        } catch (Throwable $th) {
+        } catch (PDOExeption $th) {
             throw $th;
         }
-        generate_crud($table, $columns);
+        $this->generate_crud($table, $columns);
     }
     private function generate_crud($table, $columns)
     {
-        generate_create($table, $columns);
-        generate_read($table, $columns);
-        generate_update($table, $columns);
-        generate_delete($table, $columns);
+        $this->generate_create($table, $columns['name']);
+        $this->generate_read($table);
+        $this->generate_update($table, $columns['name']);
+        $this->generate_delete($table, $columns['name']);
     }
     private function generate_create($table, $columns)
     {
-
+        $camp = "";
+        $values = "";
+        for ($i=1; $i < count($columns); $i++) { 
+            if($i==count($columns) -1){
+                $camp  = $camp . $columns[$i];
+                $values = $values . ":".$columns[$i];
+            }
+            else {
+                $camp  = $camp . $columns[$i].",";
+                $values = $values . ":".$columns[$i].",";
+            }
+        }
+        $create = "INSERT INTO $table($camp)VALUES ($values)";
+        echo '<br>'.$create.'</br>';
     }
-    private function generate_read($table, $columns)
+    private function generate_read($table)
     {
-
+        $read = "SELECT * FROM $table";
+        echo '<br>'.$read.'</br>';
     }
     private function generate_update($table, $columns)
     {
-
+        $camps ="";
+        $condition = "$columns[0]=:$columns[0]";
+        for ($i=1; $i < count($columns); $i++) { 
+            if($i==count($columns) -1){
+                $camps =$camps . $columns[$i] . "=:".$columns[$i];
+            }
+            else {
+                $camps =$camps . $columns[$i] . "=:".$columns[$i].",";
+            }
+        }
+        $update = "UPDATE $table SET $camps WHERE $condition";
+        echo '<br>'.$update.'</br>';
     }
     private function generate_delete($table, $columns)
     {
-        $id = $columns['name'][0];
-        $delete = "DELETE FROM $table WHERE $id=$id"
+        $id = $columns[0];
+        $delete = "DELETE FROM $table WHERE $id=:$id";
+        echo '<br>'.$delete.'</br>';
     }
 }
 function PRUEBAS()
 {
     $obj = new Manager;
-    $dt = array('columns' => 'chars', 'clean_pass' => 'dcastro');
-    $mostar = $obj->get_columns('sirdis','tb_users');
+    $mostar = $obj->generate();
     print_r($mostar);
 }
 PRUEBAS();
