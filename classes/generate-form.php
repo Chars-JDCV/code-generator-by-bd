@@ -1,27 +1,37 @@
 <?php
-require_once  getcwd() . '/../config/ConnectionManager.php';
-require_once getcwd() . '/generate-form.php';
-
-class Manager extends ConnectionManager
+class generate_form
 {
 
-    public function __construct()
-    {
-        $this->$objform = new generate_form;
-    }
-    public $objform;
-    private $create;
-    private $read;
-    private $update;
-    private $delete;
-    public function generate()
+    private $form_code;
+    public function generate_code_form($columns)
     {
         $db_name= 'sirdis';
+        $form_code="
+                <form id=''>
+					<div class='form-group'>
+						<label for='hostname'>Hostname</label>
+						<input type='text' class='form-control' id='hostname' placeholder='localhost'>
+					</div>
+					<div class='form-group'>
+						<label for='dbname'>Data Base Name</label>
+						<input type='text' class='form-control' id='dbname' placeholder='SIRDIS'>
+					</div>
+					<div class='form-group'>
+						<label for='username'>User Name</label>
+						<input type='text' class='form-control' id='username' placeholder='root'>
+					</div>
+					<div class='form-group'>
+						<label for='password'>Password</label>
+						<input type='password' class='form-control' id='password' placeholder=''>
+					</div>
+					<button type='submit' class='btn btn-primary'>Change Data</button>
+				</form>";
         try {
-            $this->get_tables($db_name);
+            //$this->generate();
         } catch (PDOExeption $e) {
             throw $e;
         }
+        echo $columns;
     }
     private function get_tables($dbname)
     {
@@ -62,7 +72,6 @@ class Manager extends ConnectionManager
             throw $th;
         }
         $this->generate_crud($table, $columns);
-        $objform->generate_code_form($columns);
     }
     private function generate_crud($table, $columns)
     {
@@ -111,11 +120,4 @@ class Manager extends ConnectionManager
         $delete = "DELETE FROM $table WHERE $id=:$id";
     }
 }
-function PRUEBAS()
-{
-    $obj = new Manager;
-    $mostar = $obj->generate();
-    print_r($mostar);
-}
-PRUEBAS();
  ?>
