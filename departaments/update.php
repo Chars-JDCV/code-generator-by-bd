@@ -9,19 +9,19 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_departaments._update'>
+            <form id='tb_departaments_update'>
                 <div class='form-group'>
                     
-                    <input type='hidden' id= 'id_departamentupdate' class='form-control'>
+                    <input type='hidden' id= 'id_departament_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='short_dept_nameupdate'>short_dept_name</label>
-                    <input type='text' id= 'short_dept_nameupdate' class='form-control'>
+                    <label for='short_dept_name_update'>short_dept_name</label>
+                    <input type='text' id= 'short_dept_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='full_dept_nameupdate'>full_dept_name</label>
-                    <input type='text' id= 'full_dept_nameupdate' class='form-control'>
+                    <label for='full_dept_name_update'>full_dept_name</label>
+                    <input type='text' id= 'full_dept_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_chiefupdate'>id_chief</label>
-                    <select  id= 'id_chiefupdate' class='form-control'></select>
+                    <label for='id_chief_update'>id_chief</label>
+                    <select  id= 'id_chief_update' class='form-control'></select>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_update' class='btn btn-primary'>Actualizar</button>

@@ -9,7 +9,7 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_switch_good_depts._delete'>
+            <form id='tb_switch_good_depts_delete'>
                 <div class='form-group'>
                     
                     <input type='hidden' id= 'id_switch_delete' class='form-control'>

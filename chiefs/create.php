@@ -9,13 +9,13 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_chiefs._create'>
+            <form id='tb_chiefs_create'>
                 <div class='form-group'>
-                    <label for='id_titlecreate'>id_title</label>
-                    <select  id= 'id_titlecreate' class='form-control'></select>
+                    <label for='id_title_create'>id_title</label>
+                    <select  id= 'id_title_create' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='chief_namecreate'>chief_name</label>
-                    <input type='text' id= 'chief_namecreate' class='form-control'>
+                    <label for='chief_name_create'>chief_name</label>
+                    <input type='text' id= 'chief_name_create' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_create' class='btn btn-primary'>Registrar</button>

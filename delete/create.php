@@ -9,19 +9,19 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_delete_goods._create'>
+            <form id='tb_delete_goods_create'>
                 <div class='form-group'>
-                    <label for='id_goodcreate'>id_good</label>
-                    <select  id= 'id_goodcreate' class='form-control'></select>
+                    <label for='id_good_create'>id_good</label>
+                    <select  id= 'id_good_create' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='date_of_deletioncreate'>date_of_deletion</label>
-                    <input type='date' id= 'date_of_deletioncreate' class='form-control'>
+                    <label for='date_of_deletion_create'>date_of_deletion</label>
+                    <input type='date' id= 'date_of_deletion_create' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_sub_deptcreate'>id_sub_dept</label>
-                    <select  id= 'id_sub_deptcreate' class='form-control'></select>
+                    <label for='id_sub_dept_create'>id_sub_dept</label>
+                    <select  id= 'id_sub_dept_create' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='value_deleted_goodcreate'>value_deleted_good</label>
-                    <input type='number' id= 'value_deleted_goodcreate' class='form-control'>
+                    <label for='value_deleted_good_create'>value_deleted_good</label>
+                    <input type='number' id= 'value_deleted_good_create' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_create' class='btn btn-primary'>Registrar</button>

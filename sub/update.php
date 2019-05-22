@@ -9,19 +9,19 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_sub_departaments._update'>
+            <form id='tb_sub_departaments_update'>
                 <div class='form-group'>
                     
-                    <input type='hidden' id= 'id_sub_deptupdate' class='form-control'>
+                    <input type='hidden' id= 'id_sub_dept_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='short_sub_dept_nameupdate'>short_sub_dept_name</label>
-                    <input type='text' id= 'short_sub_dept_nameupdate' class='form-control'>
+                    <label for='short_sub_dept_name_update'>short_sub_dept_name</label>
+                    <input type='text' id= 'short_sub_dept_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='sub_dept_nameupdate'>sub_dept_name</label>
-                    <input type='text' id= 'sub_dept_nameupdate' class='form-control'>
+                    <label for='sub_dept_name_update'>sub_dept_name</label>
+                    <input type='text' id= 'sub_dept_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_departamentupdate'>id_departament</label>
-                    <select  id= 'id_departamentupdate' class='form-control'></select>
+                    <label for='id_departament_update'>id_departament</label>
+                    <select  id= 'id_departament_update' class='form-control'></select>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_update' class='btn btn-primary'>Actualizar</button>

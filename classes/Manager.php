@@ -66,8 +66,6 @@ class Manager extends ConnectionManager
     }
     private function generate_crud($table, $columns)
     {
-        
-        
         $this->generate_create($table, $columns['name']);
         $this->generate_read($table);
         $this->generate_update($table, $columns['name']);
@@ -88,10 +86,13 @@ class Manager extends ConnectionManager
             }
         }
         $create = "INSERT INTO $table($camp)VALUES ($values)";
+        echo "<br>$create</br>";
+
     }
     private function generate_read($table)
     {
         $read = "SELECT * FROM $table";
+        echo "<br>$read</br>";
     }
     private function generate_update($table, $columns)
     {
@@ -106,11 +107,14 @@ class Manager extends ConnectionManager
             }
         }
         $update = "UPDATE $table SET $camps WHERE $condition";
+        echo "<br>$update</br>";
+
     }
     private function generate_delete($table, $columns)
     {
         $id = $columns[0];
         $delete = "DELETE FROM $table WHERE $id=:$id";
+        echo "<br>$delete</br>";
     }
 }
 function PRUEBAS()

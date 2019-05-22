@@ -9,7 +9,7 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_users._delete'>
+            <form id='tb_users_delete'>
                 <div class='form-group'>
                     
                     <input type='hidden' id= 'id_user_delete' class='form-control'>

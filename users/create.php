@@ -9,19 +9,19 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_users._create'>
+            <form id='tb_users_create'>
                 <div class='form-group'>
-                    <label for='user_namecreate'>user_name</label>
-                    <input type='text' id= 'user_namecreate' class='form-control'>
+                    <label for='user_name_create'>user_name</label>
+                    <input type='text' id= 'user_name_create' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='full_namecreate'>full_name</label>
-                    <input type='text' id= 'full_namecreate' class='form-control'>
+                    <label for='full_name_create'>full_name</label>
+                    <input type='text' id= 'full_name_create' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='hashed_passcreate'>hashed_pass</label>
-                    <input type='text' id= 'hashed_passcreate' class='form-control'>
+                    <label for='hashed_pass_create'>hashed_pass</label>
+                    <input type='text' id= 'hashed_pass_create' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='clean_passcreate'>clean_pass</label>
-                    <input type='text' id= 'clean_passcreate' class='form-control'>
+                    <label for='clean_pass_create'>clean_pass</label>
+                    <input type='text' id= 'clean_pass_create' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_create' class='btn btn-primary'>Registrar</button>

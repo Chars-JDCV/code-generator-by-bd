@@ -9,22 +9,22 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_users._update'>
+            <form id='tb_users_update'>
                 <div class='form-group'>
                     
-                    <input type='hidden' id= 'id_userupdate' class='form-control'>
+                    <input type='hidden' id= 'id_user_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='user_nameupdate'>user_name</label>
-                    <input type='text' id= 'user_nameupdate' class='form-control'>
+                    <label for='user_name_update'>user_name</label>
+                    <input type='text' id= 'user_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='full_nameupdate'>full_name</label>
-                    <input type='text' id= 'full_nameupdate' class='form-control'>
+                    <label for='full_name_update'>full_name</label>
+                    <input type='text' id= 'full_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='hashed_passupdate'>hashed_pass</label>
-                    <input type='text' id= 'hashed_passupdate' class='form-control'>
+                    <label for='hashed_pass_update'>hashed_pass</label>
+                    <input type='text' id= 'hashed_pass_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='clean_passupdate'>clean_pass</label>
-                    <input type='text' id= 'clean_passupdate' class='form-control'>
+                    <label for='clean_pass_update'>clean_pass</label>
+                    <input type='text' id= 'clean_pass_update' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_update' class='btn btn-primary'>Actualizar</button>

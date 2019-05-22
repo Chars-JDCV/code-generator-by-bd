@@ -9,16 +9,16 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_people_lendings._create'>
+            <form id='tb_people_lendings_create'>
                 <div class='form-group'>
-                    <label for='person_namecreate'>person_name</label>
-                    <input type='text' id= 'person_namecreate' class='form-control'>
+                    <label for='person_name_create'>person_name</label>
+                    <input type='text' id= 'person_name_create' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='card_idcreate'>card_id</label>
-                    <input type='text' id= 'card_idcreate' class='form-control'>
+                    <label for='card_id_create'>card_id</label>
+                    <input type='text' id= 'card_id_create' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='is_lent_tocreate'>is_lent_to</label>
-                    <input type='number' id= 'is_lent_tocreate' class='form-control'>
+                    <label for='is_lent_to_create'>is_lent_to</label>
+                    <input type='number' id= 'is_lent_to_create' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_create' class='btn btn-primary'>Registrar</button>

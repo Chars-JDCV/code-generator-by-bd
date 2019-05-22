@@ -9,13 +9,13 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_titles._update'>
+            <form id='tb_titles_update'>
                 <div class='form-group'>
                     
-                    <input type='hidden' id= 'id_titleupdate' class='form-control'>
+                    <input type='hidden' id= 'id_title_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='titleupdate'>title</label>
-                    <input type='text' id= 'titleupdate' class='form-control'>
+                    <label for='title_update'>title</label>
+                    <input type='text' id= 'title_update' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_update' class='btn btn-primary'>Actualizar</button>

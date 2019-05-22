@@ -11,7 +11,7 @@ class generate_form
         $div ="";
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
-                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],'update',0);
+                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
             }
             $form_code=$this->get_form($value,$typeform,$div,$table);
             $body = $this->get_body($message,$typeform,$form_code);
@@ -28,7 +28,7 @@ class generate_form
         $div ="";
         try {
             for ($i=1; $i < count($columns['name']); $i++) { 
-                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],'create',1);
+                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,1);
             }
             $form_code=$this->get_form($value,$typeform,$div,$table);
             $body = $this->get_body($message,$typeform,$form_code);
@@ -59,7 +59,7 @@ class generate_form
         $typeform =str_replace("_", "", $typeform);
         $tables = explode("_", $table);
         $table = $tables[1];
-        $folder = "../".$table;
+        $folder = "../$table";
         if (!file_exists($folder)) {
             mkdir($folder, 0700, true);
         }
@@ -70,7 +70,7 @@ class generate_form
     public function get_form($value,$typeform,$div,$table)
     {
         $form_code="
-            <form id='.$table.$typeform'>
+            <form id='$table$typeform'>
                 $div
                 <div class='modal-footer'>
                     <button id='btn$typeform' class='btn btn-primary'>$value</button>

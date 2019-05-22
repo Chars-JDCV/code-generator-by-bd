@@ -9,19 +9,19 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_people_lendings._update'>
+            <form id='tb_people_lendings_update'>
                 <div class='form-group'>
                     
-                    <input type='hidden' id= 'id_personupdate' class='form-control'>
+                    <input type='hidden' id= 'id_person_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='person_nameupdate'>person_name</label>
-                    <input type='text' id= 'person_nameupdate' class='form-control'>
+                    <label for='person_name_update'>person_name</label>
+                    <input type='text' id= 'person_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='card_idupdate'>card_id</label>
-                    <input type='text' id= 'card_idupdate' class='form-control'>
+                    <label for='card_id_update'>card_id</label>
+                    <input type='text' id= 'card_id_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='is_lent_toupdate'>is_lent_to</label>
-                    <input type='number' id= 'is_lent_toupdate' class='form-control'>
+                    <label for='is_lent_to_update'>is_lent_to</label>
+                    <input type='number' id= 'is_lent_to_update' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_update' class='btn btn-primary'>Actualizar</button>

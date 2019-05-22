@@ -9,10 +9,10 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_titles._create'>
+            <form id='tb_titles_create'>
                 <div class='form-group'>
-                    <label for='titlecreate'>title</label>
-                    <input type='text' id= 'titlecreate' class='form-control'>
+                    <label for='title_create'>title</label>
+                    <input type='text' id= 'title_create' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_create' class='btn btn-primary'>Registrar</button>
