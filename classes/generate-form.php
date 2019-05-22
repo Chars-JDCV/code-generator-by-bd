@@ -5,142 +5,99 @@ class generate_form
     private $form_code;
     public function generate_code_form_update($columns,$table)
     {
-        
-
+        $typeform = "_update";
+        $message = "Actualizar Registro";
+        $value ="Actualizar";
         $div ="";
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
                 $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],'update',0);
             }
-            $form_code="
-            <form id='".$table."_update'>
-                $div
-            </form>";
-            $body = "<?php
-                        include_once '../head.php';
-                        include_once '../menu.php';
-                    ?>
-                    <body>
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
-                                $form_code
-                                </div>
-                            </div>
-                                <div class='row'>
-                                    <div class='form-group'>
-                                        <input type='button' id= 'btnUpdate' class='btn btn-success' value = 'Actualizar'>
-                                    </div>
-                                </div>
-                        </div>
-                    </body>
-                    <?php
-                        include_once '../foot.php';
-                    ?>";
-            $tables = explode("_", $table);
-            $table = $tables[1];
-            $folder = "../".$table;
-            if (!file_exists($folder)) {
-                mkdir($folder, 0700, true);
-            }
-            $file = fopen("$folder/update.php", "w") or die("No se puede abrir/crear el archivo!");
-            fwrite($file, $body);
-            fclose($file);
+            $form_code=$this->get_form($value,$typeform,$div,$table);
+            $body = $this->get_body($message,$typeform,$form_code);
+            $this->create_folder_and_page($table,$body,$typeform);
         } catch (PDOExeption $e) {
             throw $e;
         }
     }
     public function generate_code_form_create($columns,$table)
     {
-        
+        $typeform = "_create";
+        $message = "Crear Registro Nuevo";
+        $value ="Registrar";
         $div ="";
         try {
             for ($i=1; $i < count($columns['name']); $i++) { 
                 $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],'create',1);
             }
-            $form_code="
-            <form id='".$table."_create'>
-                $div
-            </form>";
-            $body = "<?php
-                        include_once '../head.php';
-                        include_once '../menu.php';
-                    ?>
-                    <body>
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
-                                $form_code
-                                </div>
-                            </div>
-                                <div class='row'>
-                                    <div class='form-group'>
-                                        <input type='button' id= 'btnCreate' class='btn btn-success' value = 'Guardar'>
-                                    </div>
-                                </div>
-                        </div>
-                    </body>
-                    <?php
-                        include_once '../foot.php';
-                    ?>";
-            $tables = explode("_", $table);
-            $table = $tables[1];
-            $folder = "../".$table;
-            if (!file_exists($folder)) {
-                mkdir($folder, 0700, true);
-            }
-            $file = fopen("$folder/create.php", "w") or die("No se puede abrir/crear el archivo!");
-            fwrite($file, $body);
-            fclose($file);
+            $form_code=$this->get_form($value,$typeform,$div,$table);
+            $body = $this->get_body($message,$typeform,$form_code);
+            $this->create_folder_and_page($table,$body,$typeform);
         } catch (PDOExeption $e) {
             throw $e;
         }
     }
     public function generate_code_form_delete($columns,$table)
     {
-        
+        $typeform = "_delete";
+        $message = "Eliminar Registro";
+        $value ="Eliminar";
         $div ="";
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
-                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],'delete',0);
+                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
             }
-            $form_code="
-            <form id='".$table."_create'>
-                $div
-            </form>";
-            $body = "<?php
-                        include_once '../head.php';
-                        include_once '../menu.php';
-                    ?>
-                    <body>
-                        <div class='container'>
-                            <div class='row'>
-                                <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
-                                $form_code
-                                </div>
-                            </div>
-                                <div class='row'>
-                                    <div class='form-group'>
-                                        <input type='button' id= 'btndelete' class='btn btn-success' value = 'Eliminar'>
-                                    </div>
-                                </div>
-                        </div>
-                    </body>
-                    <?php
-                        include_once '../foot.php';
-                    ?>";
-            $tables = explode("_", $table);
-            $table = $tables[1];
-            $folder = "../".$table;
-            if (!file_exists($folder)) {
-                mkdir($folder, 0700, true);
-            }
-            $file = fopen("$folder/delete.php", "w") or die("No se puede abrir/crear el archivo!");
-            fwrite($file, $body);
-            fclose($file);
+            $form_code=$this->get_form($value,$typeform,$div,$table);
+            $body = $this->get_body($message,$typeform,$form_code);
+            $this->create_folder_and_page($table,$body,$typeform);
         } catch (PDOExeption $e) {
             throw $e;
         }
+    }
+    public function create_folder_and_page($table,$body,$typeform)
+    {
+        $typeform =str_replace("_", "", $typeform);
+        $tables = explode("_", $table);
+        $table = $tables[1];
+        $folder = "../".$table;
+        if (!file_exists($folder)) {
+            mkdir($folder, 0700, true);
+        }
+        $file = fopen("$folder/$typeform.php", "w") or die("No se puede abrir/crear el archivo!");
+        fwrite($file, $body);
+        fclose($file);
+    }
+    public function get_form($value,$typeform,$div,$table)
+    {
+        $form_code="
+            <form id='.$table.$typeform'>
+                $div
+                <div class='modal-footer'>
+                    <button id='btn$typeform' class='btn btn-primary'>$value</button>
+                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
+                </div>
+            </form>";
+        return $form_code;
+    }
+    public function get_body($message,$typeform,$form_code)
+    {
+        //cambiar la clase a modal para que no se miren
+        $body = "<div class='modal$typeform' id='modal$typeform' tabindex='-1' role='dialog'>
+                        <div class='modal-dialog' role='document'>
+                            <div class='modal-content'>
+                                <div class='modal-header'>
+                                    <h3 class='modal-title'>$message</h3>
+                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                                        <span aria-hidden='true'>&times;</span>
+                                    </button>
+                                </div>
+                                <div class='modal-body'> 
+                                    $form_code
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+        return $body;
     }
     public function generate_code_form_read($columns,$table)
     {
@@ -189,16 +146,16 @@ class generate_form
         $label = "";
         if ($key=='MUL' || $key=='PRI') {
             if ($numbercolumn== 0 && $key=='PRI') {
-                $input = "<input type='hidden' id= '".$name."_".$typeform."' class='form-control'>";
+                $input = "<input type='hidden' id= '".$name.$typeform."' class='form-control'>";
             }
             else {
-                $label = "<label for='".$name."_".$typeform."'>$name</label>";
-                $input = "<select  id= '".$name."_".$typeform."' class='form-control'></select>";
+                $label = "<label for='".$name.$typeform."'>$name</label>";
+                $input = "<select  id= '".$name.$typeform."' class='form-control'></select>";
             }
         }
         else {
-            $label = "<label for='".$name."_".$typeform."'>$name</label>";
-            $input = "<input type='".$this->get_type($type)."' id= '".$name."_".$typeform."' class='form-control'>";
+            $label = "<label for='".$name.$typeform."'>$name</label>";
+            $input = "<input type='".$this->get_type($type)."' id= '".$name.$typeform."' class='form-control'>";
         }
         $div = "<div class='form-group'>
                     $label

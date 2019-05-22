@@ -1,4 +1,4 @@
-<div class='modal_delete' id='modal_delete' tabindex='-1' role='dialog'>
+<div class='modal_update' id='modal_update' tabindex='-1' role='dialog'>
                         <div class='modal-dialog' role='document'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
@@ -9,25 +9,25 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_delete_goods._delete'>
+            <form id='.tb_users._update'>
                 <div class='form-group'>
                     
-                    <input type='hidden' id= 'id_delete_delete' class='form-control'>
+                    <input type='hidden' id= 'id_user_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_good_delete'>id_good</label>
-                    <select  id= 'id_good_delete' class='form-control'></select>
+                    <label for='user_name_update'>user_name</label>
+                    <input type='text' id= 'user_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='date_of_deletion_delete'>date_of_deletion</label>
-                    <input type='date' id= 'date_of_deletion_delete' class='form-control'>
+                    <label for='full_name_update'>full_name</label>
+                    <input type='text' id= 'full_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_sub_dept_delete'>id_sub_dept</label>
-                    <select  id= 'id_sub_dept_delete' class='form-control'></select>
+                    <label for='hashed_pass_update'>hashed_pass</label>
+                    <input type='text' id= 'hashed_pass_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='value_deleted_good_delete'>value_deleted_good</label>
-                    <input type='number' id= 'value_deleted_good_delete' class='form-control'>
+                    <label for='clean_pass_update'>clean_pass</label>
+                    <input type='text' id= 'clean_pass_update' class='form-control'>
                 </div>
                 <div class='modal-footer'>
-                    <button id='btn_delete' class='btn btn-primary'>Eliminar</button>
+                    <button id='btn_update' class='btn btn-primary'>Eliminar</button>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
                 </div>
             </form>

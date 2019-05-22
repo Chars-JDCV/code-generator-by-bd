@@ -1,4 +1,4 @@
-<div class='modal_delete' id='modal_delete' tabindex='-1' role='dialog'>
+<div class='modal_update' id='modal_update' tabindex='-1' role='dialog'>
                         <div class='modal-dialog' role='document'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
@@ -9,25 +9,19 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='.tb_delete_goods._delete'>
+            <form id='.tb_chiefs._update'>
                 <div class='form-group'>
                     
-                    <input type='hidden' id= 'id_delete_delete' class='form-control'>
+                    <input type='hidden' id= 'id_chief_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_good_delete'>id_good</label>
-                    <select  id= 'id_good_delete' class='form-control'></select>
+                    <label for='id_title_update'>id_title</label>
+                    <select  id= 'id_title_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='date_of_deletion_delete'>date_of_deletion</label>
-                    <input type='date' id= 'date_of_deletion_delete' class='form-control'>
-                </div><div class='form-group'>
-                    <label for='id_sub_dept_delete'>id_sub_dept</label>
-                    <select  id= 'id_sub_dept_delete' class='form-control'></select>
-                </div><div class='form-group'>
-                    <label for='value_deleted_good_delete'>value_deleted_good</label>
-                    <input type='number' id= 'value_deleted_good_delete' class='form-control'>
+                    <label for='chief_name_update'>chief_name</label>
+                    <input type='text' id= 'chief_name_update' class='form-control'>
                 </div>
                 <div class='modal-footer'>
-                    <button id='btn_delete' class='btn btn-primary'>Eliminar</button>
+                    <button id='btn_update' class='btn btn-primary'>Eliminar</button>
                     <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
                 </div>
             </form>
