@@ -9,23 +9,23 @@
                                 
             <form id='tb_lendings_update'>
                 <div class='form-group'>
-                    <label for='id_lending'>id_lending</label>
-                    <select  id= 'id_lending_update' class='form-control'></select>
+                    
+                    <input type='hidden' id= 'id_lending_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='date_lent'>date_lent</label>
-                    <input type='datetime' id= 'date_lent' class='form-control'>
+                    <label for='date_lent_update'>date_lent</label>
+                    <input type='datetime' id= 'date_lent_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='date_returned'>date_returned</label>
-                    <input type='datetime' id= 'date_returned' class='form-control'>
+                    <label for='date_returned_update'>date_returned</label>
+                    <input type='datetime' id= 'date_returned_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_person'>id_person</label>
+                    <label for='id_person_update'>id_person</label>
                     <select  id= 'id_person_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='id_good'>id_good</label>
+                    <label for='id_good_update'>id_good</label>
                     <select  id= 'id_good_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='quantity'>quantity</label>
-                    <input type='number' id= 'quantity' class='form-control'>
+                    <label for='quantity_update'>quantity</label>
+                    <input type='number' id= 'quantity_update' class='form-control'>
                 </div>
             </form>
                                 </div>

@@ -9,20 +9,20 @@
                                 
             <form id='tb_delete_goods_update'>
                 <div class='form-group'>
-                    <label for='id_delete'>id_delete</label>
-                    <select  id= 'id_delete_update' class='form-control'></select>
+                    
+                    <input type='hidden' id= 'id_delete_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_good'>id_good</label>
+                    <label for='id_good_update'>id_good</label>
                     <select  id= 'id_good_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='date_of_deletion'>date_of_deletion</label>
-                    <input type='date' id= 'date_of_deletion' class='form-control'>
+                    <label for='date_of_deletion_update'>date_of_deletion</label>
+                    <input type='date' id= 'date_of_deletion_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_sub_dept'>id_sub_dept</label>
+                    <label for='id_sub_dept_update'>id_sub_dept</label>
                     <select  id= 'id_sub_dept_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='value_deleted_good'>value_deleted_good</label>
-                    <input type='number' id= 'value_deleted_good' class='form-control'>
+                    <label for='value_deleted_good_update'>value_deleted_good</label>
+                    <input type='number' id= 'value_deleted_good_update' class='form-control'>
                 </div>
             </form>
                                 </div>

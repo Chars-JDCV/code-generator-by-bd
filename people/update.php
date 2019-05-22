@@ -9,17 +9,17 @@
                                 
             <form id='tb_people_lendings_update'>
                 <div class='form-group'>
-                    <label for='id_person'>id_person</label>
-                    <select  id= 'id_person_update' class='form-control'></select>
+                    
+                    <input type='hidden' id= 'id_person_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='person_name'>person_name</label>
-                    <input type='text' id= 'person_name' class='form-control'>
+                    <label for='person_name_update'>person_name</label>
+                    <input type='text' id= 'person_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='card_id'>card_id</label>
-                    <input type='text' id= 'card_id' class='form-control'>
+                    <label for='card_id_update'>card_id</label>
+                    <input type='text' id= 'card_id_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='is_lent_to'>is_lent_to</label>
-                    <input type='number' id= 'is_lent_to' class='form-control'>
+                    <label for='is_lent_to_update'>is_lent_to</label>
+                    <input type='number' id= 'is_lent_to_update' class='form-control'>
                 </div>
             </form>
                                 </div>

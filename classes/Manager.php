@@ -60,6 +60,9 @@ class Manager extends ConnectionManager
         $this->generate_crud($table, $columns);
         $objform = new generate_form;
         $objform->generate_code_form_update($columns,$table);
+        $objform->generate_code_form_create($columns,$table);
+        $objform->generate_code_form_delete($columns,$table);
+        $objform->generate_code_form_read($columns,$table);
     }
     private function generate_crud($table, $columns)
     {

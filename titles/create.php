@@ -7,23 +7,17 @@
                             <div class='row'>
                                 <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
                                 
-            <form id='tb_chiefs_update'>
+            <form id='tb_titles_create'>
                 <div class='form-group'>
-                    
-                    <input type='hidden' id= 'id_chief_update' class='form-control'>
-                </div><div class='form-group'>
-                    <label for='id_title_update'>id_title</label>
-                    <select  id= 'id_title_update' class='form-control'></select>
-                </div><div class='form-group'>
-                    <label for='chief_name_update'>chief_name</label>
-                    <input type='text' id= 'chief_name_update' class='form-control'>
+                    <label for='title_create'>title</label>
+                    <input type='text' id= 'title_create' class='form-control'>
                 </div>
             </form>
                                 </div>
                             </div>
                                 <div class='row'>
                                     <div class='form-group'>
-                                        <input type='button' id= 'btnUpdate' class='btn btn-success' value = 'Actualizar'>
+                                        <input type='button' id= 'btnCreate' class='btn btn-success' value = 'Guardar'>
                                     </div>
                                 </div>
                         </div>

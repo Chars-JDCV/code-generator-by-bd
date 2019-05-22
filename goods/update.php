@@ -9,44 +9,44 @@
                                 
             <form id='tb_goods_update'>
                 <div class='form-group'>
-                    <label for='id_good'>id_good</label>
-                    <select  id= 'id_good_update' class='form-control'></select>
+                    
+                    <input type='hidden' id= 'id_good_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='id_sub_departament'>id_sub_departament</label>
+                    <label for='id_sub_departament_update'>id_sub_departament</label>
                     <select  id= 'id_sub_departament_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='short_good_name'>short_good_name</label>
-                    <input type='text' id= 'short_good_name' class='form-control'>
+                    <label for='short_good_name_update'>short_good_name</label>
+                    <input type='text' id= 'short_good_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='full_good_name'>full_good_name</label>
-                    <input type='text' id= 'full_good_name' class='form-control'>
+                    <label for='full_good_name_update'>full_good_name</label>
+                    <input type='text' id= 'full_good_name_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='good_description'>good_description</label>
-                    <input type='text' id= 'good_description' class='form-control'>
+                    <label for='good_description_update'>good_description</label>
+                    <input type='text' id= 'good_description_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='good_brand'>good_brand</label>
-                    <input type='text' id= 'good_brand' class='form-control'>
+                    <label for='good_brand_update'>good_brand</label>
+                    <input type='text' id= 'good_brand_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='good_model'>good_model</label>
-                    <input type='text' id= 'good_model' class='form-control'>
+                    <label for='good_model_update'>good_model</label>
+                    <input type='text' id= 'good_model_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='sibisep_serial_code'>sibisep_serial_code</label>
-                    <input type='text' id= 'sibisep_serial_code' class='form-control'>
+                    <label for='sibisep_serial_code_update'>sibisep_serial_code</label>
+                    <input type='text' id= 'sibisep_serial_code_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='good_value'>good_value</label>
-                    <input type='number' id= 'good_value' class='form-control'>
+                    <label for='good_value_update'>good_value</label>
+                    <input type='number' id= 'good_value_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='date'>date</label>
-                    <input type='datetime' id= 'date' class='form-control'>
+                    <label for='date_update'>date</label>
+                    <input type='datetime' id= 'date_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='good_exists'>good_exists</label>
-                    <input type='number' id= 'good_exists' class='form-control'>
+                    <label for='good_exists_update'>good_exists</label>
+                    <input type='number' id= 'good_exists_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='quantity'>quantity</label>
-                    <input type='number' id= 'quantity' class='form-control'>
+                    <label for='quantity_update'>quantity</label>
+                    <input type='number' id= 'quantity_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='is_unregistered'>is_unregistered</label>
-                    <input type='number' id= 'is_unregistered' class='form-control'>
+                    <label for='is_unregistered_update'>is_unregistered</label>
+                    <input type='number' id= 'is_unregistered_update' class='form-control'>
                 </div>
             </form>
                                 </div>

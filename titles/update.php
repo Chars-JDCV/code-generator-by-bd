@@ -9,11 +9,11 @@
                                 
             <form id='tb_titles_update'>
                 <div class='form-group'>
-                    <label for='id_title'>id_title</label>
-                    <select  id= 'id_title_update' class='form-control'></select>
+                    
+                    <input type='hidden' id= 'id_title_update' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='title'>title</label>
-                    <input type='text' id= 'title' class='form-control'>
+                    <label for='title_update'>title</label>
+                    <input type='text' id= 'title_update' class='form-control'>
                 </div>
             </form>
                                 </div>
