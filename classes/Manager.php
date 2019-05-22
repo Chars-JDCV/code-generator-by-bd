@@ -41,6 +41,7 @@ class Manager extends ConnectionManager
         $columns = array(
             'name'=>array(),
             'type'=>array(),
+            'key'=>array(),
         );
         try {
             $sth = "SHOW COLUMNS FROM $table FROM $dbname";
@@ -51,6 +52,7 @@ class Manager extends ConnectionManager
             {
                 array_push($columns['name'], $row['Field']);
                 array_push($columns['type'], $row['Type']);
+                array_push($columns['key'], $row['Key']);
             }
         } catch (PDOExeption $th) {
             throw $th;

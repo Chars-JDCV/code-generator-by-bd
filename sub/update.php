@@ -7,26 +7,26 @@
                             <div class='row'>
                                 <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
                                 
-            <form id='tb_departaments'>
+            <form id='tb_sub_departaments_update'>
                 <div class='form-group'>
+                    <label for='id_sub_dept'>id_sub_dept</label>
+                    <select  id= 'id_sub_dept_update' class='form-control'></select>
+                </div><div class='form-group'>
+                    <label for='short_sub_dept_name'>short_sub_dept_name</label>
+                    <input type='text' id= 'short_sub_dept_name' class='form-control'>
+                </div><div class='form-group'>
+                    <label for='sub_dept_name'>sub_dept_name</label>
+                    <input type='text' id= 'sub_dept_name' class='form-control'>
+                </div><div class='form-group'>
                     <label for='id_departament'>id_departament</label>
-                    <input type='number' id= 'id_departament' class='form-control'>
-                </div><div class='form-group'>
-                    <label for='short_dept_name'>short_dept_name</label>
-                    <input type='text' id= 'short_dept_name' class='form-control'>
-                </div><div class='form-group'>
-                    <label for='full_dept_name'>full_dept_name</label>
-                    <input type='text' id= 'full_dept_name' class='form-control'>
-                </div><div class='form-group'>
-                    <label for='id_chief'>id_chief</label>
-                    <input type='number' id= 'id_chief' class='form-control'>
+                    <select  id= 'id_departament_update' class='form-control'></select>
                 </div>
             </form>
                                 </div>
                             </div>
                                 <div class='row'>
                                     <div class='form-group'>
-                                        <input type='button' id= 'btngenerator' class='btn btn-success' value = 'Generate Code'>
+                                        <input type='button' id= 'btnUpdate' class='btn btn-success' value = 'Actualizar'>
                                     </div>
                                 </div>
                         </div>

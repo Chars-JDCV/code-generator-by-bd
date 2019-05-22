@@ -10,10 +10,10 @@ class generate_form
         $div ="";
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
-                $div = $div . $this->get_input($columns['name'][$i],$columns['type'][$i]);
+                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],'update');
             }
             $form_code="
-            <form id='$table'>
+            <form id='".$table."_update'>
                 $div
             </form>";
             $body = "<?php
@@ -29,7 +29,7 @@ class generate_form
                             </div>
                                 <div class='row'>
                                     <div class='form-group'>
-                                        <input type='button' id= 'btngenerator' class='btn btn-success' value = 'Generate Code'>
+                                        <input type='button' id= 'btnUpdate' class='btn btn-success' value = 'Actualizar'>
                                     </div>
                                 </div>
                         </div>
@@ -37,21 +37,27 @@ class generate_form
                     <?php
                         include_once '../foot.php';
                     ?>";
-            $carpeta = "../".$table."";
-            if (!file_exists($carpeta)) {
-                mkdir("../$table", 0700, true);
+            $tables = explode("_", $table);
+            $table = $tables[1];
+            $folder = "../".$table;
+            if (!file_exists($folder)) {
+                mkdir($folder, 0700, true);
             }
-            $file = fopen("../$table/update.php", "w") or die("No se puede abrir/crear el archivo!");
+            $file = fopen("$folder/update.php", "w") or die("No se puede abrir/crear el archivo!");
             fwrite($file, $body);
             fclose($file);
         } catch (PDOExeption $e) {
             throw $e;
         }
     }
-    private function get_input($name,$type)
+    private function get_div($name,$type,$key,$typeform)
     {
-        
-        $input = "<input type='".$this->get_type($type)."' id= '".$name."' class='form-control'>";
+        if ($key=='MUL' || $key=='PRI') {
+            $input = "<select  id= '".$name."_".$typeform."' class='form-control'></select>";
+        }
+        else {
+            $input = "<input type='".$this->get_type($type)."' id= '".$name."' class='form-control'>";
+        }
         $div = "<div class='form-group'>
                     <label for='".$name."'>$name</label>
                     $input

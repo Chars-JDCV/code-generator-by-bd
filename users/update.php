@@ -7,26 +7,29 @@
                             <div class='row'>
                                 <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
                                 
-            <form id='tb_people_lendings'>
+            <form id='tb_users_update'>
                 <div class='form-group'>
-                    <label for='id_person'>id_person</label>
-                    <input type='number' id= 'id_person' class='form-control'>
+                    <label for='id_user'>id_user</label>
+                    <select  id= 'id_user_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='person_name'>person_name</label>
-                    <input type='text' id= 'person_name' class='form-control'>
+                    <label for='user_name'>user_name</label>
+                    <input type='text' id= 'user_name' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='card_id'>card_id</label>
-                    <input type='text' id= 'card_id' class='form-control'>
+                    <label for='full_name'>full_name</label>
+                    <input type='text' id= 'full_name' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='is_lent_to'>is_lent_to</label>
-                    <input type='number' id= 'is_lent_to' class='form-control'>
+                    <label for='hashed_pass'>hashed_pass</label>
+                    <input type='text' id= 'hashed_pass' class='form-control'>
+                </div><div class='form-group'>
+                    <label for='clean_pass'>clean_pass</label>
+                    <input type='text' id= 'clean_pass' class='form-control'>
                 </div>
             </form>
                                 </div>
                             </div>
                                 <div class='row'>
                                     <div class='form-group'>
-                                        <input type='button' id= 'btngenerator' class='btn btn-success' value = 'Generate Code'>
+                                        <input type='button' id= 'btnUpdate' class='btn btn-success' value = 'Actualizar'>
                                     </div>
                                 </div>
                         </div>

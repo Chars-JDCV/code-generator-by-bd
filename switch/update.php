@@ -7,19 +7,19 @@
                             <div class='row'>
                                 <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
                                 
-            <form id='tb_switch_good_depts'>
+            <form id='tb_switch_good_depts_update'>
                 <div class='form-group'>
                     <label for='id_switch'>id_switch</label>
-                    <input type='number' id= 'id_switch' class='form-control'>
+                    <select  id= 'id_switch_update' class='form-control'></select>
                 </div><div class='form-group'>
                     <label for='id_good'>id_good</label>
-                    <input type='number' id= 'id_good' class='form-control'>
+                    <select  id= 'id_good_update' class='form-control'></select>
                 </div><div class='form-group'>
                     <label for='id_src_sub_dept'>id_src_sub_dept</label>
-                    <input type='number' id= 'id_src_sub_dept' class='form-control'>
+                    <select  id= 'id_src_sub_dept_update' class='form-control'></select>
                 </div><div class='form-group'>
                     <label for='id_dest_sub_dept'>id_dest_sub_dept</label>
-                    <input type='number' id= 'id_dest_sub_dept' class='form-control'>
+                    <select  id= 'id_dest_sub_dept_update' class='form-control'></select>
                 </div><div class='form-group'>
                     <label for='date_of_change'>date_of_change</label>
                     <input type='datetime' id= 'date_of_change' class='form-control'>
@@ -32,7 +32,7 @@
                             </div>
                                 <div class='row'>
                                     <div class='form-group'>
-                                        <input type='button' id= 'btngenerator' class='btn btn-success' value = 'Generate Code'>
+                                        <input type='button' id= 'btnUpdate' class='btn btn-success' value = 'Actualizar'>
                                     </div>
                                 </div>
                         </div>

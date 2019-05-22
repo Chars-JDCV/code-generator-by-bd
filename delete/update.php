@@ -7,29 +7,29 @@
                             <div class='row'>
                                 <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
                                 
-            <form id='tb_users'>
+            <form id='tb_delete_goods_update'>
                 <div class='form-group'>
-                    <label for='id_user'>id_user</label>
-                    <input type='number' id= 'id_user' class='form-control'>
+                    <label for='id_delete'>id_delete</label>
+                    <select  id= 'id_delete_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='user_name'>user_name</label>
-                    <input type='text' id= 'user_name' class='form-control'>
+                    <label for='id_good'>id_good</label>
+                    <select  id= 'id_good_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='full_name'>full_name</label>
-                    <input type='text' id= 'full_name' class='form-control'>
+                    <label for='date_of_deletion'>date_of_deletion</label>
+                    <input type='date' id= 'date_of_deletion' class='form-control'>
                 </div><div class='form-group'>
-                    <label for='hashed_pass'>hashed_pass</label>
-                    <input type='text' id= 'hashed_pass' class='form-control'>
+                    <label for='id_sub_dept'>id_sub_dept</label>
+                    <select  id= 'id_sub_dept_update' class='form-control'></select>
                 </div><div class='form-group'>
-                    <label for='clean_pass'>clean_pass</label>
-                    <input type='text' id= 'clean_pass' class='form-control'>
+                    <label for='value_deleted_good'>value_deleted_good</label>
+                    <input type='number' id= 'value_deleted_good' class='form-control'>
                 </div>
             </form>
                                 </div>
                             </div>
                                 <div class='row'>
                                     <div class='form-group'>
-                                        <input type='button' id= 'btngenerator' class='btn btn-success' value = 'Generate Code'>
+                                        <input type='button' id= 'btnUpdate' class='btn btn-success' value = 'Actualizar'>
                                     </div>
                                 </div>
                         </div>
