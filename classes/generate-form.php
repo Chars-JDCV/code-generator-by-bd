@@ -14,7 +14,7 @@ class generate_form extends generate_javascript
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
                 $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
-                $div = $div . $this->code_validation($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
+                //$div = $div . $this->code_validation($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
             }
             $form_code=$this->get_form($value,$typeform,$div,$table);
             $body = $this->get_body($message,$typeform,$form_code);
