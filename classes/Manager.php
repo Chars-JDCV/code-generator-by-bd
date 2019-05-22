@@ -4,12 +4,6 @@ require_once getcwd() . '/generate-form.php';
 
 class Manager extends ConnectionManager
 {
-
-    public function __construct()
-    {
-        $this->$objform = new generate_form;
-    }
-    public $objform;
     private $create;
     private $read;
     private $update;
@@ -62,10 +56,13 @@ class Manager extends ConnectionManager
             throw $th;
         }
         $this->generate_crud($table, $columns);
-        $objform->generate_code_form($columns);
+        $objform = new generate_form;
+        $objform->generate_code_form_update($columns,$table);
     }
     private function generate_crud($table, $columns)
     {
+        
+        
         $this->generate_create($table, $columns['name']);
         $this->generate_read($table);
         $this->generate_update($table, $columns['name']);

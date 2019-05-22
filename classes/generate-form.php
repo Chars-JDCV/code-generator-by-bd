@@ -3,121 +3,138 @@ class generate_form
 {
 
     private $form_code;
-    public function generate_code_form($columns)
+    public function generate_code_form_update($columns,$table)
     {
-        $db_name= 'sirdis';
-        $form_code="
-                <form id=''>
-					<div class='form-group'>
-						<label for='hostname'>Hostname</label>
-						<input type='text' class='form-control' id='hostname' placeholder='localhost'>
-					</div>
-					<div class='form-group'>
-						<label for='dbname'>Data Base Name</label>
-						<input type='text' class='form-control' id='dbname' placeholder='SIRDIS'>
-					</div>
-					<div class='form-group'>
-						<label for='username'>User Name</label>
-						<input type='text' class='form-control' id='username' placeholder='root'>
-					</div>
-					<div class='form-group'>
-						<label for='password'>Password</label>
-						<input type='password' class='form-control' id='password' placeholder=''>
-					</div>
-					<button type='submit' class='btn btn-primary'>Change Data</button>
-				</form>";
+        $div ="";
         try {
-            //$this->generate();
+            for ($i=0; $i < count($columns['name']); $i++) { 
+                $div = $div . $this->get_input($columns['name'][$i],$columns['type'][$i]);
+            }
+
         } catch (PDOExeption $e) {
             throw $e;
         }
-        echo $columns;
-    }
-    private function get_tables($dbname)
-    {
-        $table = array();
-        try {
-            $sth = "SELECT TABLE_NAME
-                FROM INFORMATION_SCHEMA.TABLES 
-                WHERE TABLE_SCHEMA ='".$dbname."'";
-            $cnx = $this->connectSqlSrv();
-            $sth = $cnx->prepare($sth);
-            $sth->execute();
-            while ($row = $sth->fetch(PDO::FETCH_ASSOC)) 
-            {
-                array_push($table, $row['TABLE_NAME']);
-                $this->get_columns($dbname,$row['TABLE_NAME']);
-            }
-        } catch (PDOExeption $th) {
-            throw $th;
+        $form_code="
+                <form id='$table'>
+					$div
+				</form>";
+        echo '<br>'.$form_code.'</b>';
+        $carpeta = "../".$table."";
+        if (!file_exists($carpeta)) {
+            mkdir("../$table", 0700, true);
         }
+        $file = fopen("../$table/update.php", "w") or die("No se puede abrir/crear el archivo!");
+        fwrite($file, $form_code);
+        fclose($file);
     }
-    private function get_columns($dbname,$table)
+    private function get_input($name,$type)
     {
-        $columns = array(
-            'name'=>array(),
-            'type'=>array(),
-        );
-        try {
-            $sth = "SHOW COLUMNS FROM $table FROM $dbname";
-            $cnx = $this->connectSqlSrv();
-            $sth = $cnx->prepare($sth);
-            $sth->execute();
-            while ($row = $sth->fetch(PDO::FETCH_ASSOC)) 
-            {
-                array_push($columns['name'], $row['Field']);
-                array_push($columns['type'], $row['Type']);
-            }
-        } catch (PDOExeption $th) {
-            throw $th;
+        
+        $input = "<input type='".$this->get_type($type)."' id= '".$name."' class='form-control'>";
+        $div = "<div class='form-group'>
+                    <label for='".$name."'>$name</label>
+                    $input
+                </div>";
+       return $div;
+    }
+    private function get_type($type)
+    {
+        if (strpos($type, '(')) {
+            $types = explode("(", $type);
+            $type = $types[0];
         }
-        $this->generate_crud($table, $columns);
-    }
-    private function generate_crud($table, $columns)
-    {
-        $this->generate_create($table, $columns['name']);
-        $this->generate_read($table);
-        $this->generate_update($table, $columns['name']);
-        $this->generate_delete($table, $columns['name']);
-    }
-    private function generate_create($table, $columns)
-    {
-        $camp = "";
-        $values = "";
-        for ($i=1; $i < count($columns); $i++) { 
-            if($i==count($columns) -1){
-                $camp  = $camp . $columns[$i];
-                $values = $values . ":".$columns[$i];
-            }
-            else {
-                $camp  = $camp . $columns[$i].",";
-                $values = $values . ":".$columns[$i].",";
-            }
+        switch (strtoupper($type)) {
+            case 'TINYINT':
+                $type = 'number';
+                break;
+            case 'SMALLINT':
+                $type = 'number';
+                break;
+            case 'MEDIUMINT':
+                $type = 'number';
+                break;
+            case 'INT':
+                $type = 'number';
+                break;
+            case 'INTEGER':
+                $type = 'number';
+                break;
+            case 'BIGINT':
+                $type = 'number';
+                break;
+            case 'FLOAT':
+                $type = 'number';
+                break;
+
+            case 'DOUBLE':
+                $type = 'number';
+                break;
+            case 'REAL':
+                $type = 'number';
+                break;
+            case 'DECIMAL':
+                $type = 'number';
+                break;
+            case 'NUMERIC':
+                $type = 'number';
+                break;
+            
+            case 'DATE':
+                $type = 'date';
+                break;
+            case 'DATETIME':
+                $type = 'datetime';
+                break;
+            case 'TIMESTAMP':
+                $type = 'datetime';
+                break;
+            case 'TIME':
+                $type = 'date';
+                break;
+            case 'YEAR':
+                $type = 'date';
+                break;
+                
+                case 'CHAR':
+                $type = 'text';
+                break;
+            case 'VARCHAR':
+                $type = 'text';
+                break;
+            case 'TINYBLOB':
+                $type = 'text';
+                break;
+            case 'TINYTEXT':
+                $type = 'text';
+                break;
+            case 'BLOB':
+                $type = 'text';
+                break;
+            case 'TEXT':
+                $type = 'text';
+                break;
+            case 'MEDIUMBLOB':
+                $type = 'text';
+                break;
+            case 'MEDIUMTEXT':
+                $type = 'text';
+                break;
+            case 'LONGBLOB':
+                $type = 'text';
+                break;
+            case 'LONGTEXT':
+                $type = 'text';
+                break;
+            case 'ENUM':
+                $type = 'text';
+                break;
+            case 'SET':
+                $type = 'text';
+                break;
+            default:
+                break;
         }
-        $create = "INSERT INTO $table($camp)VALUES ($values)";
-    }
-    private function generate_read($table)
-    {
-        $read = "SELECT * FROM $table";
-    }
-    private function generate_update($table, $columns)
-    {
-        $camps ="";
-        $condition = "$columns[0]=:$columns[0]";
-        for ($i=1; $i < count($columns); $i++) { 
-            if($i==count($columns) -1){
-                $camps =$camps . $columns[$i] . "=:".$columns[$i];
-            }
-            else {
-                $camps =$camps . $columns[$i] . "=:".$columns[$i].",";
-            }
-        }
-        $update = "UPDATE $table SET $camps WHERE $condition";
-    }
-    private function generate_delete($table, $columns)
-    {
-        $id = $columns[0];
-        $delete = "DELETE FROM $table WHERE $id=:$id";
+        return $type;
     }
 }
  ?>
