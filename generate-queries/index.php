@@ -1,15 +1,7 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../assets/css/bootstrap-4.0.0/css/bootstrap.min.css">
-
-    <title>Hello, world!</title>
-  </head>
+<?php
+include_once "../head.php";
+include_once "../menu.php";
+?>
   <body>
     <div class="container">
 		<div class="row">
@@ -42,9 +34,6 @@
 			</div>
 	</div>
   </body>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../assets/js/jquery-3.2.1.slim.min.js"></script>
-    <script src="../assets/js/popper.min.js"></script>
-    <script src="../assets/css/bootstrap-4.0.0/js/bootstrap.min.js"></script>
-</html>
+<?php
+	include_once "../foot.php";
+?>

@@ -1,6 +1,14 @@
-
-                <form id='tb_goods'>
-					<div class='form-group'>
+<?php
+                        include_once '../head.php';
+                        include_once '../menu.php';
+                    ?>
+                    <body>
+                        <div class='container'>
+                            <div class='row'>
+                                <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                                
+            <form id='tb_goods'>
+                <div class='form-group'>
                     <label for='id_good'>id_good</label>
                     <input type='number' id= 'id_good' class='form-control'>
                 </div><div class='form-group'>
@@ -40,4 +48,16 @@
                     <label for='is_unregistered'>is_unregistered</label>
                     <input type='number' id= 'is_unregistered' class='form-control'>
                 </div>
-				</form>
+            </form>
+                                </div>
+                            </div>
+                                <div class='row'>
+                                    <div class='form-group'>
+                                        <input type='button' id= 'btngenerator' class='btn btn-success' value = 'Generate Code'>
+                                    </div>
+                                </div>
+                        </div>
+                    </body>
+                    <?php
+                        include_once '../foot.php';
+                    ?>

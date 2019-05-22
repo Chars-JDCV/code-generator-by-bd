@@ -5,27 +5,48 @@ class generate_form
     private $form_code;
     public function generate_code_form_update($columns,$table)
     {
+        
+
         $div ="";
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
                 $div = $div . $this->get_input($columns['name'][$i],$columns['type'][$i]);
             }
-
+            $form_code="
+            <form id='$table'>
+                $div
+            </form>";
+            $body = "<?php
+                        include_once '../head.php';
+                        include_once '../menu.php';
+                    ?>
+                    <body>
+                        <div class='container'>
+                            <div class='row'>
+                                <div class='col-lg-3 col-md-4 col-sm-6 col-xs-12'>
+                                $form_code
+                                </div>
+                            </div>
+                                <div class='row'>
+                                    <div class='form-group'>
+                                        <input type='button' id= 'btngenerator' class='btn btn-success' value = 'Generate Code'>
+                                    </div>
+                                </div>
+                        </div>
+                    </body>
+                    <?php
+                        include_once '../foot.php';
+                    ?>";
+            $carpeta = "../".$table."";
+            if (!file_exists($carpeta)) {
+                mkdir("../$table", 0700, true);
+            }
+            $file = fopen("../$table/update.php", "w") or die("No se puede abrir/crear el archivo!");
+            fwrite($file, $body);
+            fclose($file);
         } catch (PDOExeption $e) {
             throw $e;
         }
-        $form_code="
-                <form id='$table'>
-					$div
-				</form>";
-        echo '<br>'.$form_code.'</b>';
-        $carpeta = "../".$table."";
-        if (!file_exists($carpeta)) {
-            mkdir("../$table", 0700, true);
-        }
-        $file = fopen("../$table/update.php", "w") or die("No se puede abrir/crear el archivo!");
-        fwrite($file, $form_code);
-        fclose($file);
     }
     private function get_input($name,$type)
     {
