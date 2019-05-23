@@ -3,167 +3,88 @@ class generate_javascript
 {
 
     private $form_code;
-    public function generate_code_form_update($columns,$table)
+    public function generate_code_javascript($columns,$table)
     {
+        $document = $this->get_update($columns,$table). $this->get_create($columns,$table);
+        $this->create_folder_and_main($table,$document);
+        echo $this->get_update($columns,$table).'<br></br>';
+    }
+    private function get_update($columns,$table)
+    {
+        $messagevalidation ="";
+        $requirevalidation ="";
         $typeform = "_update";
         $message = "Actualizar Registro";
         $value ="Actualizar";
         $div ="";
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
-                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
+                $messagevalidation = $messagevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
+                $requirevalidation = $requirevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
             }
-            $form_code=$this->get_form($value,$typeform,$div,$table);
-            $body = $this->get_body($message,$typeform,$form_code);
-            $this->create_folder_and_page($table,$body,$typeform);
+            //$this->create_folder_and_page($table,$body,$typeform);
         } catch (PDOExeption $e) {
             throw $e;
         }
+        return  $this->code_validation($table,$requirevalidation,$messagevalidation,$typeform,'update');
     }
-    public function generate_code_form_create($columns,$table)
+    private function get_create($columns,$table)
     {
+        $messagevalidation ="";
+        $requirevalidation ="";
         $typeform = "_create";
-        $message = "Crear Registro Nuevo";
-        $value ="Registrar";
-        $div ="";
         try {
             for ($i=1; $i < count($columns['name']); $i++) { 
-                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,1);
+                $messagevalidation = $messagevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
+                $requirevalidation = $requirevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
             }
-            $form_code=$this->get_form($value,$typeform,$div,$table);
-            $body = $this->get_body($message,$typeform,$form_code);
-            $this->create_folder_and_page($table,$body,$typeform);
+            //$this->create_folder_and_page($table,$body,$typeform);
         } catch (PDOExeption $e) {
             throw $e;
         }
+        return  $this->code_validation($table,$requirevalidation,$messagevalidation,$typeform,'update');
     }
-    public function generate_code_form_delete($columns,$table)
+    public function create_folder_and_main($table,$document)
     {
-        $typeform = "_delete";
-        $message = "Eliminar Registro";
-        $value ="Eliminar";
-        $div ="";
-        try {
-            for ($i=0; $i < count($columns['name']); $i++) { 
-                $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
-            }
-            $form_code=$this->get_form($value,$typeform,$div,$table);
-            $body = $this->get_body($message,$typeform,$form_code);
-            $this->create_folder_and_page($table,$body,$typeform);
-        } catch (PDOExeption $e) {
-            throw $e;
-        }
-    }
-    public function create_folder_and_page($table,$body,$typeform)
-    {
-        $typeform =str_replace("_", "", $typeform);
         $tables = explode("_", $table);
         $table = $tables[1];
         $folder = "../$table";
         if (!file_exists($folder)) {
             mkdir($folder, 0700, true);
         }
-        $file = fopen("$folder/$typeform.php", "w") or die("No se puede abrir/crear el archivo!");
-        fwrite($file, $body);
+        $file = fopen("$folder/main.js", "w") or die("No se puede abrir/crear el archivo!");
+        fwrite($file, $document);
         fclose($file);
     }
-    public function get_form($value,$typeform,$div,$table)
+    private function get_document()
     {
-        $form_code="
-            <form id='$table$typeform'>
-                $div
-                <div class='modal-footer'>
-                    <button id='btn$typeform' class='btn btn-primary'>$value</button>
-                    <button type='button' class='btn btn-secondary' data-dismiss='modal'>Cancelar</button>
-                </div>
-            </form>";
-        return $form_code;
+        //mandar a llamar la creacion de validacion, eventos de botones, datapick
+        $button =  $this->get_boton($typeform,true,$modal,$table);
+        $value = "$(document).ready(function () {
+                        $validation
+                        $botones
+                        $datapicker
+                        alertas('Bienvenido', 'info');
+                        get();
+                        getSelect();
+                        getCatalogo();
+                    });";
+        return $value;
     }
-    public function get_body($message,$typeform,$form_code)
+    private function get_boton($typeform,$type,$modal,$table)
     {
-        //cambiar la clase a modal para que no se miren
-        $body = "<div class='modal$typeform' id='modal$typeform' tabindex='-1' role='dialog'>
-                        <div class='modal-dialog' role='document'>
-                            <div class='modal-content'>
-                                <div class='modal-header'>
-                                    <h3 class='modal-title'>$message</h3>
-                                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
-                                        <span aria-hidden='true'>&times;</span>
-                                    </button>
-                                </div>
-                                <div class='modal-body'> 
-                                    $form_code
-                                </div>
-                            </div>
-                        </div>
-                    </div>";
-        return $body;
-    }
-    public function generate_code_form_read($columns,$table)
-    {
-        
-        try {
-            $body = "<?php
-                        include_once '../head.php';
-                        include_once '../menu.php';
-                    ?>
-                    <body>
-                        <div class='container'>
-                        <!-- Incluye el cuerpo de la pagina-->
-                        <h1 id='Catalogo'></h1>
-                        <button id='btnModalRegistro' class='btn btn-success'>Nuevo Registro</button>
-                        <div class='row'>
-                            <div class='col-md-9'>
-                                <table id='tblTabla' class='table table-stripped table-hover'>
-
-                                </table>
-                            </div>
-                        </div>
-                        </div>
-                    </body>
-                    <?php
-                        include 'create.php';
-                        include 'update.php';
-                        include 'delete.php';
-                        include '../foot.php';
-                    ?>
-                    <script src='main.js?v=4'></script>";
-            $tables = explode("_", $table);
-            $table = $tables[1];
-            $folder = "../".$table;
-            if (!file_exists($folder)) {
-                mkdir($folder, 0700, true);
-            }
-            $file = fopen("$folder/index.php", "w") or die("No se puede abrir/crear el archivo!");
-            fwrite($file, $body);
-            fclose($file);
-        } catch (PDOExeption $e) {
-            throw $e;
+        $button ="";
+        if ($type) {
+            $button = "$('#btn$typeform').click(function () {
+                $('#$table$typeform').validate();
+            });";
+        } else {
+            $button = "$('#btn$modal$typeform').click(function () {
+                $('#modal$typeform').modal();
+            });";
         }
+        return $button;
     }
-    private function get_div($name,$type,$key,$typeform,$numbercolumn)
-    {
-        $label = "";
-        if ($key=='MUL' || $key=='PRI') {
-            if ($numbercolumn== 0 && $key=='PRI') {
-                $input = "<input type='hidden' id= '".$name.$typeform."' class='form-control'>";
-            }
-            else {
-                $label = "<label for='".$name.$typeform."'>$name</label>";
-                $input = "<select  id= '".$name.$typeform."' class='form-control'></select>";
-            }
-        }
-        else {
-            $label = "<label for='".$name.$typeform."'>$name</label>";
-            $input = "<input type='".$this->get_type($type)."' id= '".$name.$typeform."' class='form-control'>";
-        }
-        $div = "<div class='form-group'>
-                    $label
-                    $input
-                </div>";
-       return $div;
-    }
-    
     private function get_type($type)
     {
         if (strpos($type, '(')) {
@@ -262,6 +183,145 @@ class generate_javascript
                 break;
         }
         return $type;
+    }
+    private function code_validation($table,$rules,$messages,$typeform,$method)
+    {
+        $validation = "$('#$table$typeform').validate(
+                        {
+                            language: 'es',
+                            errorClass: 'invalid',
+                            validClass: 'valid',
+                            rules:
+                            {
+                                $rules
+                            },
+                            messages:
+                            {
+                                $messages
+                            },
+                            honkeyup: false,
+                            submitHandler: function () {
+                                $('div.error').hide();
+                                $method();
+                            },
+                            honkeyup: false,
+                            highlight: function (element, required) {
+                                $(element).fadeOut(function () {
+                                    $(element).fadeIn();
+                                    $(element).css('border', '2px solid #FDADAF');
+                                });
+                            },
+                            unhighlight: function (element, errorClass, validClass) {
+                                $(element).css('border', '1px solid #CCC');
+                            }
+                        }
+                    );";
+        return $validation;     
+    }
+    private function get_menssages_valition($name,$type)
+    {
+        $messagetype = "";
+        $message ="$name: {
+                        required: true, 
+                        $messagetype
+                    },";
+        return $message;
+    }
+    private function get_require_valition($name,$type)
+    {
+        $requiere = "";
+        $camps ="$name: {
+                        required: true, 
+                        $requiere
+                    },";
+        return $camps;
+    }
+    
+    private function get_method_get()
+    {
+        $method_get = "function get() {
+                        $.post('main.php', { action: 'get' }, function (e) {
+                            if (e.error || !e.data) {
+                                alert(e.r);
+                            }
+                            else {
+                                setDataTable(e.r.c, e.r.d);
+                            }
+                        });
+                    }";
+        return $method_get;
+    }
+
+    private function get_method_catalog()
+    {
+        $method_catalog = "function getCatalogo() {
+                                var URLactual = window.location.href;
+                                var catalog = URLactual.split('/')
+                                document.getElementById('Catalogo').innerHTML='Catálogo de '+ catalog[catalog.length -2];
+                            }";
+        return $method_catalog;
+    }
+    private function get_method_FullSelect()
+    {
+        $method_FullSelect = "function FullSelect(nameselect, tabla) {
+                                var column = []
+                                $.post('main.php', { action: 'getselect', dt: tabla }, function (e) {
+                                    if (e.error || !e.data) {
+                                        alert(e.r);
+                                    }
+                                    else {
+                                        console.log(e)
+                                        column.push(e.r.c[0]['data'])
+                                        column.push(e.r.c[0]['title'])
+                                        setSelect(e.r.d, nameselect, column);
+                                    }
+                                });
+                            }
+                            ";
+        return $method_FullSelect;
+    }
+    private function get_method_setSelect()
+    {
+        $method_setSelect = "function setSelect(array, nameselect, column) {
+            array.forEach(element => {
+                var o = new Option(element[column[1]], element[column[0]]);
+                $(nameselect).append(o);
+            });
+        }";
+        return $method_setSelect;
+    }
+    private function get_method_getSelect($columns,$table)
+    {
+        $get_select= "";
+        for ($i=0; $i < count($columns['name']); $i++) { 
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i].$typeform,$table,$columns['type'][$i]);
+        }
+        $method_getSelect = "function getSelect() {
+            $get_select
+        }";
+        return $method_getSelect;
+    }
+    private function get_getSelect($column,$table,$key)
+    {
+        $value = "";
+        if ($key=='MUL' || $key=='PRI') {
+            $value = "FullSelect('#$column', '$table');";
+        }
+        return $value;
+    }
+    private function get_setMensajeModal($column,$table,$key)
+    {
+        $value= "";
+        for ($i=0; $i < count($columns['name']); $i++) { 
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i].$typeform,$table,$columns['type'][$i]);
+        }
+        $method = "var idDel = 0;
+        function setMensajeModal(d) {
+            $('#ModalMensaje').val(d[0]['username']+ ' ' + d[0]['privilegio']);
+            $('#modaldelete').modal();
+            idDel = d[0]['id_usuario'];
+        }";
+        return $method;
     }
 }
  ?>

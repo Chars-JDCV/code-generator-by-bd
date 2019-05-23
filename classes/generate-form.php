@@ -14,7 +14,6 @@ class generate_form extends generate_javascript
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
                 $div = $div . $this->get_div($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
-                //$div = $div . $this->code_validation($columns['name'][$i],$columns['type'][$i],$columns['key'][$i],$typeform,0);
             }
             $form_code=$this->get_form($value,$typeform,$div,$table);
             $body = $this->get_body($message,$typeform,$form_code);
@@ -265,55 +264,6 @@ class generate_form extends generate_javascript
                 break;
         }
         return $type;
-    }
-    private function code_validation($name,$type,$key,$typeform,$numbercolumn)
-    {
-        $validation = "$('#$table$typeform').validate(
-                        {
-                            language: 'es',
-                            errorClass: 'invalid',
-                            validClass: 'valid',
-                            rules:
-                            {
-                                $rules
-                            },
-                            messages:
-                            {
-                                $messages
-                            },
-                            honkeyup: false,
-                            submitHandler: function () {
-                                $('div.error').hide();
-                                $method();
-                            },
-                            honkeyup: false,
-                            highlight: function (element, required) {
-                                $(element).fadeOut(function () {
-                                    $(element).fadeIn();
-                                    $(element).css('border', '2px solid #FDADAF');
-                                });
-                            },
-                            unhighlight: function (element, errorClass, validClass) {
-                                $(element).css('border', '1px solid #CCC');
-                            }
-                        }
-                    );";
-    }
-    private function get_menssages_valition($name,$type,$key,$numbercolumn)
-    {
-        $messagetype = "";
-        $message ="$name: {
-                        required: true, 
-                        $messagetype
-                    },";
-    }
-    private function get_require_valition($name,$type,$key,$numbercolumn)
-    {
-        $requiere = "";
-        $camps ="$name: {
-                        required: true, 
-                        $requiere
-                    },";
     }
 }
  ?>

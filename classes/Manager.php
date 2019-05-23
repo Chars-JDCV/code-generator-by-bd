@@ -1,6 +1,7 @@
 <?php
 require_once  getcwd() . '/../config/ConnectionManager.php';
 require_once getcwd() . '/generate-form.php';
+require_once getcwd() . '/generate-javascript.php';
 
 class Manager extends ConnectionManager
 {
@@ -57,12 +58,14 @@ class Manager extends ConnectionManager
         } catch (PDOExeption $th) {
             throw $th;
         }
-        $this->generate_crud($table, $columns);
+        //$this->generate_crud($table, $columns);
         $objform = new generate_form;
-        $objform->generate_code_form_update($columns,$table);
+        $objjava = new generate_javascript;
+        $objjava->generate_code_javascript($columns,$table);
+        /*$objform->generate_code_form_update($columns,$table);
         $objform->generate_code_form_create($columns,$table);
         $objform->generate_code_form_delete($columns,$table);
-        $objform->generate_code_form_read($columns,$table);
+        $objform->generate_code_form_read($columns,$table);*/
     }
     private function generate_crud($table, $columns)
     {
