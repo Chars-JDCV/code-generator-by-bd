@@ -5,9 +5,10 @@ class generate_javascript
     private $form_code;
     public function generate_code_javascript($columns,$table)
     {
-        $document = $this->get_update($columns,$table). $this->get_create($columns,$table);
+        $document = get_document($typeform,$modal,$table);
+        $document += $this->get_update($columns,$table). $this->get_create($columns,$table);
         $this->create_folder_and_main($table,$document);
-        echo $this->get_update($columns,$table).'<br></br>';
+        $this->get_update($columns,$table);
     }
     private function get_update($columns,$table)
     {
@@ -56,7 +57,7 @@ class generate_javascript
         fwrite($file, $document);
         fclose($file);
     }
-    private function get_document()
+    private function get_document($typeform,$modal,$table)
     {
         //mandar a llamar la creacion de validacion, eventos de botones, datapick
         $button =  $this->get_boton($typeform,true,$modal,$table);
@@ -321,6 +322,95 @@ class generate_javascript
             $('#modaldelete').modal();
             idDel = d[0]['id_usuario'];
         }";
+        return $method;
+    }
+    private function get_datatable($column)
+    {
+        $col =  '';
+        for ($i=0; $i < count($column); $i++) {
+            if (count($column) == $i) {
+                $col += $i;
+            } else {
+                $col += $i .',';
+            }
+        }
+        $value= "";
+        $value = "function setDataTable(c, d) {
+                    var options = {
+                        dom: 'Bfrtip',
+                        buttons: [{
+                            extend: 'collection',
+                            text: 'Control',
+                            orientation: 'landscape',
+                            buttons: [{
+                                text: 'Copiar',
+                                extend: 'copy',
+                                exportOptions: {
+                                    columns: [$col]
+                                }
+                            }, {
+                                extend: 'pdf',
+                                orientation: 'landscape',
+                                pageSize: 'LEGAL',
+                                exportOptions: {
+                                    columns: [$col]
+                                }
+                            },
+                            {
+                                text: 'Excel',
+                                extend: 'excel',
+                                exportOptions: {
+                                    columns: [$col]
+                                }
+                            },
+                            {
+                                text: 'Imprimir',
+                                extend: 'print',
+                                exportOptions: {
+                                    columns: [$col]
+                                }
+                            }
+                            ]
+                        },
+                        {
+                            extend: 'colvis',
+                            text: 'Visor de columnas',
+                            collectionLayout: 'fixed three-column'
+                        }
+                        ],
+                        autoWidth: true,
+                        columns: c,
+                        data: d,
+                        destroy: true,
+                        language: {
+                            sProcessing: 'Procesando...',
+                            sLengthMenu: 'Mostrar _MENU_ registros',
+                            sZeroRecords: 'No se encontraron resultados',
+                            sEmptyTable: 'Ningún dato disponible en esta tabla',
+                            sInfo: 'Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros',
+                            sInfoEmpty: 'Mostrando registros del 0 al 0 de un total de 0 registros',
+                            sInfoFiltered: '(filtrado de un total de _MAX_ registros)',
+                            sInfoPostFix: '',
+                            sSearch: 'Buscar:',
+                            sUrl: '',
+                            sInfoThousands: ',',
+                            sLoadingRecords: 'Cargando...',
+                            oPaginate: {
+                                sFirst: 'Primero',
+                                sLast: 'Último',
+                                sNext: 'Siguiente',
+                                sPrevious: 'Anterior'
+                            },
+                            oAria: {
+                                sSortAscending: ': Activar para ordenar la columna de manera ascendente',
+                                sSortDescending: ': Activar para ordenar la columna de manera descendente'
+                            }
+                        },
+                        select: true,
+                        responsive:true,
+                    };
+                    $('#tblTabla').DataTable(options);
+                }";
         return $method;
     }
 }
