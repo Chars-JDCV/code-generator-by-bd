@@ -1,4 +1,5 @@
 <?php
+header("Content-Type: text/html; charset=utf-8");
 class generate_javascript
 {
 
@@ -69,8 +70,10 @@ class generate_javascript
     }
     public function create_folder_and_main($table,$document)
     {
-        $tables = explode("_", $table);
-        $table = $tables[1];
+        if (strpos($table, '_')) {
+            $tables = explode("_", $table);
+            $table = $tables[1];
+        }
         $folder = "../$table";
         if (!file_exists($folder)) {
             mkdir($folder, 0700, true);

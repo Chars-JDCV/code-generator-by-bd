@@ -1,6 +1,7 @@
 <?php
 require_once  getcwd() . '/../config/ConnectionManager.php';
 require_once getcwd() . '/generate-javascript.php';
+header("Content-Type: text/html; charset=utf-8");
 class generate_form extends generate_javascript
 {
     private $form_code;
@@ -59,8 +60,10 @@ class generate_form extends generate_javascript
     public function create_folder_and_page($table,$body,$typeform)
     {
         $typeform =str_replace("_", "", $typeform);
-        $tables = explode("_", $table);
-        $table = $tables[1];
+        if (strpos($table, '_')) {
+            $tables = explode("_", $table);
+            $table = $tables[1];
+        }
         $folder = "../$table";
         if (!file_exists($folder)) {
             mkdir($folder, 0700, true);
@@ -130,8 +133,10 @@ class generate_form extends generate_javascript
                         include '../foot.php';
                     ?>
                     <script src='main.js?v=4'></script>";
-            $tables = explode("_", $table);
-            $table = $tables[1];
+            if (strpos($table, '_')) {
+                    $tables = explode("_", $table);
+                    $table = $tables[1];
+                }
             $folder = "../".$table;
             if (!file_exists($folder)) {
                 mkdir($folder, 0700, true);
