@@ -6,7 +6,7 @@
                         <div class='container'>
                         <!-- Incluye el cuerpo de la pagina-->
                         <h1 id='Catalogo'></h1>
-                        <button id='btnModalRegistro' class='btn btn-success'>Nuevo Registro</button>
+                        <button id='btnModalCreate' class='btn btn-success'>Nuevo Registro</button>
                         <div class='row'>
                             <div class='col-md-9'>
                                 <table id='tblTabla' class='table table-stripped table-hover'>

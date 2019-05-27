@@ -62,10 +62,10 @@ class Manager extends ConnectionManager
         $objform = new generate_form;
         $objjava = new generate_javascript;
         $objjava->generate_code_javascript($columns,$table);
-        /*$objform->generate_code_form_update($columns,$table);
+        $objform->generate_code_form_update($columns,$table);
         $objform->generate_code_form_create($columns,$table);
         $objform->generate_code_form_delete($columns,$table);
-        $objform->generate_code_form_read($columns,$table);*/
+        $objform->generate_code_form_read($columns,$table);
     }
     private function generate_crud($table, $columns)
     {

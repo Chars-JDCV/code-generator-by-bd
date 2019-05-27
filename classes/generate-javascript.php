@@ -5,45 +5,67 @@ class generate_javascript
     private $form_code;
     public function generate_code_javascript($columns,$table)
     {
-        $document = get_document($typeform,$modal,$table);
-        $document += $this->get_update($columns,$table). $this->get_create($columns,$table);
+        $document = "";
+        $documentReady = $this->get_documentReady($columns,$table);
+        $documentReady = $documentReady . $this->get_method_catalog();
+        $documentReady = $documentReady . $this->get_method_getSelect($columns,$table);
+        $documentReady = $documentReady . $this->get_method_get();
+        $documentReady = $documentReady . $this->get_method_FullSelect();
+        $documentReady = $documentReady . $this->get_method_setSelect();
+        $documentReady = $documentReady . $this->get_datatable($columns);
+        $documentReady = $documentReady . $this->get_editx($columns);
+        $documentReady = $documentReady . $this->get_setDatosModal($columns);
+        $documentReady = $documentReady . $this->get_update($columns,$table);
+        $documentReady = $documentReady . $this->get_create($columns,$table);
+        $documentReady = $documentReady . $this->get_deletex($columns);
+        $documentReady = $documentReady . $this->get_setMensajeModal($columns);
+        $documentReady = $documentReady . $this->get_delete($columns,$table);
+        $documentReady = $documentReady . $this->get_cancel();
+        $documentReady = $documentReady . $this->get_alert();
+        $document = $documentReady;
+        //formatt
+        /*
+            $documentReady
+            {
+                $validation*
+                $datapicker*
+                $botones*
+                alertas('Bienvenido', 'info');*
+                get();*
+                getSelect();*
+                getCatalogo();*
+            }
+            $getCatalogo*
+            $setSelect*
+            $get*
+            $FullSelect*
+            $setSelect*
+            $setDataTable*
+            $editx*
+            $setDatosModal*
+            $update*
+            $save*
+            $deletex*
+            $setMensajeModal*
+            $cancel*
+            $alertas*
+        */
         $this->create_folder_and_main($table,$document);
-        $this->get_update($columns,$table);
     }
-    private function get_update($columns,$table)
+    private function get_validationCode($columns,$table,$typeform)
     {
         $messagevalidation ="";
         $requirevalidation ="";
-        $typeform = "_update";
-        $message = "Actualizar Registro";
-        $value ="Actualizar";
-        $div ="";
         try {
             for ($i=0; $i < count($columns['name']); $i++) { 
                 $messagevalidation = $messagevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
                 $requirevalidation = $requirevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
             }
-            //$this->create_folder_and_page($table,$body,$typeform);
         } catch (PDOExeption $e) {
             throw $e;
         }
-        return  $this->code_validation($table,$requirevalidation,$messagevalidation,$typeform,'update');
-    }
-    private function get_create($columns,$table)
-    {
-        $messagevalidation ="";
-        $requirevalidation ="";
-        $typeform = "_create";
-        try {
-            for ($i=1; $i < count($columns['name']); $i++) { 
-                $messagevalidation = $messagevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
-                $requirevalidation = $requirevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
-            }
-            //$this->create_folder_and_page($table,$body,$typeform);
-        } catch (PDOExeption $e) {
-            throw $e;
-        }
-        return  $this->code_validation($table,$requirevalidation,$messagevalidation,$typeform,'update');
+        $method  =str_replace("_", "", $typeform);
+        return  $this->code_validation($table,$requirevalidation,$messagevalidation,$typeform,$typeform);
     }
     public function create_folder_and_main($table,$document)
     {
@@ -72,19 +94,61 @@ class generate_javascript
                     });";
         return $value;
     }
-    private function get_boton($typeform,$type,$modal,$table)
+    private function get_documentReady($columns,$table)
+    {
+        //mandar a llamar la creacion de validacion, eventos de botones, datapick
+        $validation = $this->get_validationCode($columns,$table,'_update');
+        $validation .= $this->get_validationCode($columns,$table,'_create');
+        $validation .= $this->get_validationCode($columns,$table,'_delete');
+        $button =  $this->get_button('_update',$table);
+        $button .=  $this->get_button('_create',$table);
+        $button .=  $this->get_button('_delete',$table);
+        $datapicker = $this->get_datapicker($columns);
+        $value = "$(document).ready(function () {
+                        $validation
+                        $('#btnModalCreate').click(function() {
+                            $('#modal_create').modal();
+                        });
+                        $button
+                        $datapicker
+                        alertas('Bienvenido', 'info');
+                        get();
+                        getSelect();
+                        getCatalogo();
+                    });";
+        return $value;
+    }
+    private function get_button($typeform,$table)
     {
         $button ="";
-        if ($type) {
             $button = "$('#btn$typeform').click(function () {
                 $('#$table$typeform').validate();
             });";
-        } else {
-            $button = "$('#btn$modal$typeform').click(function () {
-                $('#modal$typeform').modal();
-            });";
-        }
         return $button;
+    }
+    private function get_datapicker($columns)
+    {
+        $value = "";
+        for ($i=0; $i < count($columns['type']); $i++) { 
+            if ($columns['type'] == 'DATE' ||
+                $columns['type'] == 'DATETIME' ||
+                $columns['type'] == 'TIMESTAMP' ||
+                $columns['type'] == 'TIME' ||
+                $columns['type'] == 'YEAR') {
+                $value+=$this->set_datapicker($columns['name'][$i],'_update');
+                $value+=$this->set_datapicker($columns['name'][$i],'_create');
+                $value+=$this->set_datapicker($columns['name'][$i],'_delete');
+            }
+        }
+        return $value;
+    }
+    private function set_datapicker($name,$typeform)
+    {
+        $value ="";
+            $value = "$('#$name$typeform').datepicker({
+                language: 'es'
+            });";
+        return $value;
     }
     private function get_type($type)
     {
@@ -187,6 +251,9 @@ class generate_javascript
     }
     private function code_validation($table,$rules,$messages,$typeform,$method)
     {
+        if ($typeform=='_delete') {
+            $method = '_delete(idDel)';
+        }
         $validation = "$('#$table$typeform').validate(
                         {
                             language: 'es',
@@ -294,44 +361,33 @@ class generate_javascript
     private function get_method_getSelect($columns,$table)
     {
         $get_select= "";
-        for ($i=0; $i < count($columns['name']); $i++) { 
-            $get_select = $get_select . $this->get_getSelect($columns['name'][$i].$typeform,$table,$columns['type'][$i]);
+        for ($i=1; $i < count($columns['name']); $i++) { 
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i],'_update',$table,$columns['key'][$i]);
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i],'_create',$table,$columns['key'][$i]);
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i],'_delete',$table,$columns['key'][$i]);
         }
         $method_getSelect = "function getSelect() {
             $get_select
         }";
         return $method_getSelect;
     }
-    private function get_getSelect($column,$table,$key)
+    private function get_getSelect($column,$typeform,$table,$key)
     {
         $value = "";
         if ($key=='MUL' || $key=='PRI') {
-            $value = "FullSelect('#$column', '$table');";
+            $value = "FullSelect('#$column$typeform', '$table');";
         }
         return $value;
     }
-    private function get_setMensajeModal($column,$table,$key)
-    {
-        $value= "";
-        for ($i=0; $i < count($columns['name']); $i++) { 
-            $get_select = $get_select . $this->get_getSelect($columns['name'][$i].$typeform,$table,$columns['type'][$i]);
-        }
-        $method = "var idDel = 0;
-        function setMensajeModal(d) {
-            $('#ModalMensaje').val(d[0]['username']+ ' ' + d[0]['privilegio']);
-            $('#modaldelete').modal();
-            idDel = d[0]['id_usuario'];
-        }";
-        return $method;
-    }
-    private function get_datatable($column)
+    private function get_datatable($columns)
     {
         $col =  '';
-        for ($i=0; $i < count($column); $i++) {
-            if (count($column) == $i) {
-                $col += $i;
+        for ($i=0; $i < count($columns['name']); $i++) {
+            //echo'<br>'. (count($columns['name'])-1) . $i.'</br>';
+            if (count($columns['name']) -1 == $i) {
+                $col .= $i;
             } else {
-                $col += $i .',';
+                $col .= $i .',';
             }
         }
         $value= "";
@@ -411,7 +467,217 @@ class generate_javascript
                     };
                     $('#tblTabla').DataTable(options);
                 }";
-        return $method;
+        return $value;
+    }
+    private function get_editx($columns)
+    {
+        $camps =  '';
+        $typeform = '_update';
+        $name = $columns['name'][0];
+        $camps = $name.$typeform.': id';
+        $value= "function editx(id) {
+                    var datos = {
+                        $camps
+                    };
+                    $.post('main.php', { action: 'consult', dt: datos }, function(e) {
+                        if (e.error) {
+                            alertas(e.r, 'danger');
+                        } else {
+                            setDatosModal(e.r.d);
+                        }
+                    });
+                    return false;
+                }";
+        return $value;
+    }
+
+    private function get_setDatosModal($columns)
+    {
+        $camps =  '';
+        $typeform = '_update';
+        for ($i=0; $i < count($columns['name']); $i++) { 
+            $key = $columns['type'][$i];
+            $name = $columns['name'][$i];
+            if ($key=='MUL' || $key=='PRI') {
+                $camps = $camps. "seleccionarSelect('#$name$typeform', d[0]['$name']);";
+            }
+            else {
+                $camps = $camps."$('#$name$typeform').val(d[0]['$name']);";
+            }
+            
+        }
+        $value= "function setDatosModal(d) {
+                    $camps
+                    $('#modal$typeform').modal();
+                }
+                
+                function seleccionarSelect(nameselect, valor) {
+                    $(nameselect).find('option').each(function(index, element) {
+                        if (element.value == valor) {
+                            $(nameselect).val(element.value);
+                        }
+                    });
+                }";
+        return $value;
+    }
+    private function get_update($columns,$table)
+    {
+        $camps =  '';
+        $typeform = '_update';
+        for ($i=0; $i < count($columns['name']); $i++) { 
+            $key = $columns['type'][$i];
+            $name = $columns['name'][$i];
+            if ($i == (count($columns['name'])) -1 ) {
+                $camps = $camps."$name: $('#$name$typeform').val()";
+            }
+            else {
+                $camps = $camps."$name: $('#$name$typeform').val(),";
+            }
+            
+        }
+        $value= "function _update() {
+                    var datos = {
+                        $camps
+                    };
+                    $.post('main.php', { action: 'update', dt: datos }, function(e) {
+                        if (e.error || !e.data) {
+                            alertas(e.r, 'danger');
+                        } else {
+                            alertas('Se ha editado Correctamente', 'success');
+                            get();
+                        }
+                    });
+                    $('#$table $typeform')[0].reset();
+                    return false;
+                }";
+        return $value;
+    }
+    private function get_create($columns,$table)
+    {
+        $camps =  '';
+        $typeform = '_create';
+        for ($i=1; $i < count($columns['name']); $i++) { 
+            $key = $columns['type'][$i];
+            $name = $columns['name'][$i];
+            if ($i == (count($columns['name'])) -1 ) {
+                $camps = $camps."$name: $('#$name$typeform').val()";
+            }
+            else {
+                $camps = $camps."$name: $('#$name$typeform').val(),";
+            }
+            
+        }
+        $value= "function _create() {
+                    var datos = {
+                        $camps
+                    };
+                    $.post('main.php', { action: 'set', dt: datos }, function(e) {
+                        if (e.error || !e.data) {
+                            alertas(e.r, 'danger');
+                        } else {
+                            alertas('Se ha registrado Correctamente', 'success');
+                            get();
+                        }
+                    });
+                    $('#$table $typeform')[0].reset();
+                    return false;
+                }";
+        return $value;
+    }
+    private function get_deletex($columns)
+    {
+        $camps =  '';
+        $typeform = '_create';
+        $name = $columns['name'][0];
+        $camps = $name.': id';
+        $value= "function deletex(id) {
+                    var datos = {
+                        $camps
+                    };
+                    $.post('main.php', { action: 'consult', dt: datos }, function(e) {
+                        if (e.error) {
+                            alertas(e.r, 'danger');
+                        } else {
+                            setMensajeModal(e.r.d);
+                        }
+                    });
+                    return false;
+                }
+                var idDel = 0;";
+        return $value;
+    }
+    private function get_setMensajeModal($columns)
+    {
+        $camps =  '';
+        $typeform = '_delete';
+        $message = "";
+        $idDel = $columns['name'][0];
+        for ($i=0; $i < count($columns['name']); $i++) { 
+            $key = $columns['type'][$i];
+            $name = $columns['name'][$i];
+            if ($key=='MUL' || $key=='PRI') {
+                $camps = $camps. "seleccionarSelect('#$name$typeform', d[0]['$name']);";
+            }
+            else {
+                $camps = $camps."$('#$name$typeform').val(d[0]['$name']);";
+            }
+        }
+        $value= "function setMensajeModal(d) {
+                    $camps
+                    $('#modal$typeform').modal();
+                    idDel = d[0]['$idDel'];
+                
+                }";
+        return $value;
+    }
+    private function get_delete($columns,$table)
+    {
+        $camps =  '';
+        $typeform = '_delete';
+        $name = $columns['name'][0];
+        $camps = $name.': id';
+        $value= "function deletex(id) {
+                    var datos = {
+                        $camps
+                    };
+                    $.post('main.php', { action: 'del', dt: datos }, function(e) {
+                        if (e.error) {
+                            alertas(e.r, 'danger');
+                        } else {
+                            alertas('Registro Eliminado Correctamente', 'success');
+                            get();
+                        }
+                        $('#modal$typeform').modal('hide');
+                    });
+                    $('#$table$typeform')[0].reset();
+                    return false;
+                }";
+        return $value;
+    }
+    private function get_cancel()
+    {
+        $value= "function cancelar(form) {
+                    $('#' + form)[0].reset();
+                    var validator = $('#' + form).validate();
+                    validator.resetForm();
+                    return false;   
+                }";
+        return $value;
+    }
+    private function get_alert()
+    {
+        
+        $value= "function alertas(mensaje, tipo) {
+                    $.notify({
+                        // options
+                        message: mensaje
+                    }, {
+                        // settings
+                        type: tipo,
+                        delay: 1500
+                    });
+                }";
+        return $value;
     }
 }
  ?>
