@@ -1,19 +1,31 @@
 <?php
+require_once  getcwd() . '/../config/ConnectionManager.php';
+
 header("Content-Type: text/html; charset=utf-8");
-class generate_server
+class generate_server extends ConnectionManager
 {
-    public function generate_code_server($columns,$table)
+    public function generate_code_server($columns,$table,$database)
     {
         $get ="";
         $read = $this->generate_read($table);
         $get = $this->get_get($columns,$read);
+        $set = $this->get_set($this->generate_create($table, $columns),$columns);
         $consult = $this->get_consult($this->generate_consult($table, $columns));
+        $delete = $this->get_delete($this->generate_delete($table, $columns));
+        $update = $this->get_update($this->generate_update($table, $columns),$columns);
+        $getSelect = $this->get_getselect();
+        $getQuery = $this->get_setQuery($database,$columns);
         $document = "<?php
                         require_once  getcwd() . '/../config/ConnectionManager.php';
                         class Manager extends ConnectionManager
                         {
                             $get
                             $consult
+                            $set
+                            $delete
+                            $update
+                            $getSelect
+                            $getQuery
                         }
                     ?>";
         $this->create_folder_and_main($table,$document);
@@ -22,18 +34,18 @@ class generate_server
     {
         $camp = "";
         $values = "";
-        for ($i=1; $i < count($columns); $i++) { 
-            if($i==count($columns) -1){
-                $camp  = $camp . $columns[$i];
-                $values = $values . ":".$columns[$i];
+        for ($i=1; $i < count($columns['name']); $i++) { 
+            if($i==count($columns['name']) -1){
+                $camp  = $camp . $columns['name'][$i];
+                $values = $values . ":".$columns['name'][$i];
             }
             else {
-                $camp  = $camp . $columns[$i].",";
-                $values = $values . ":".$columns[$i].",";
+                $camp  = $camp . $columns['name'][$i].",";
+                $values = $values . ":".$columns['name'][$i].",";
             }
         }
-        $create = "INSERT INTO $table($camp)VALUES ($values)";
-        return $create;
+        $values = "INSERT INTO $table($camp)VALUES ($values)";
+        return $values;
     }
     private function generate_read($table)
     {
@@ -43,7 +55,9 @@ class generate_server
     private function generate_update($table, $columns)
     {
         $camps ="";
-        $condition = "$columns[0]=:$columns[0]";
+        $name = $columns['name'][0];
+        $columns = $columns['name'];
+        $condition = "$name=:$name";
         for ($i=1; $i < count($columns); $i++) { 
             if($i==count($columns) -1){
                 $camps =$camps . $columns[$i] . "=:".$columns[$i];
@@ -52,14 +66,13 @@ class generate_server
                 $camps =$camps . $columns[$i] . "=:".$columns[$i].",";
             }
         }
-        $update = "UPDATE $table SET $camps  WHERE $condition";
-        echo "<br>$update</br>";
+        return $update = "UPDATE $table SET $camps  WHERE $condition";
 
     }
     private function generate_delete($table, $columns)
     {
-        $id = $columns[0];
-        $delete = "DELETE FROM $table WHERE $id=:$id";
+        $id = $columns['name'][0];
+        return $delete = "DELETE FROM $table WHERE $id=:$id";
     }
     private function generate_consult($table, $columns)
     {
@@ -69,7 +82,6 @@ class generate_server
     public function get_get($columns,$query)
     {
         
-        $campos_fechas =$this->get_fecha($columns);
         $columns_name = $this->get_columns_name($columns);
         $document = "      public function get()
                             {
@@ -83,7 +95,6 @@ class generate_server
                         
                                     $"."cnx = $"."this->connectSqlSrv();
                                     $"."sth = '$query';
-                                    $campos_fechas
                                     $"."sth = $"."cnx->prepare($"."sth);
                                     $"."sth->execute();
                                     $columns_name
@@ -121,6 +132,179 @@ class generate_server
                             return json_encode( $"."retval);
                         }";
         return $document;
+    }
+    public function get_set($query,$columns)
+    {
+        $campos_fechas =$this->get_fecha($columns);
+        $document = "   public function set( $"."dt)
+                        {
+                            $"."retval = array(
+                                'data' => false,
+                                'error' => false,
+                                'r' => array('d' => array())
+                            );
+                            try {
+                                $campos_fechas
+                                $"."cnx =  $"."this->connectSqlSrv();
+                                $"."sth =  $"."cnx->prepare('$query');
+                                $"."sth->execute( $"."dt);
+                                if ($"."retval['r'] = $"."sth->rowCount()) {
+                                    $"."retval['data'] = true;
+                                } else {
+                                    $"."retval['error'] = true;
+                                    $"."retval['r'] = 'Registro Existente';
+                                }
+                            } catch (PDOExeption  $"."e) {
+                                $"."retval['error'] = true;
+                                $"."retval['r'] =  $"."e;
+                            }
+                            return json_encode( $"."retval);
+                        }";
+        return $document;
+    }
+    public function get_delete($query)
+    {
+        $document = "   public function delete( $"."dt)
+                        {
+                            $"."retval = array(
+                                'data' => false,
+                                'error' => false,
+                                'r' => array('d' => array())
+                            );
+                            try {
+                                $"."cnx =  $"."this->connectSqlSrv();
+                                $"."sth =  $"."cnx->prepare('$query');
+                                $"."sth->execute( $"."dt);
+                                if ($"."retval['r'] = $"."sth->rowCount()) {
+                                    $"."retval['data'] = true;
+                                }
+                            } catch (PDOExeption  $"."e) {
+                                $"."retval['error'] = true;
+                                $"."retval['r'] =  $"."e;
+                            }
+                            return json_encode( $"."retval);
+                        }";
+        return $document;
+    }
+    public function get_update($query,$columns)
+    {
+        $campos_fechas =$this->get_fecha($columns);
+        $document = "   public function update( $"."dt)
+                        {
+                            $"."retval = array(
+                                'data' => false,
+                                'error' => false,
+                                'r' => array('d' => array())
+                            );
+                            try {
+                                $campos_fechas
+                                $"."cnx =  $"."this->connectSqlSrv();
+                                $"."sth =  $"."cnx->prepare('$query');
+                                $"."sth->execute( $"."dt);
+                                if ($"."retval['r'] = $"."sth->rowCount()) {
+                                    $"."retval['data'] = true;
+                                }
+                            } catch (PDOExeption  $"."e) {
+                                $"."retval['error'] = true;
+                                $"."retval['r'] =  $"."e;
+                            }
+                            return json_encode( $"."retval);
+                        }";
+        return $document;
+    }
+    public function get_getselect()
+    {
+        $document= "public function getselect( $"."dt)
+                    {
+                        $"."query =  $"."this->setQuery( $"."dt);
+                        $"."retval = array(
+                            'data' => false,
+                            'error' => false,
+                            'r' => array('c' => array(), 'd' => array())
+                        );
+                        try {
+                            $"."cnx =  $"."this->connectSqlSrv();
+                            $"."sth =  $"."cnx->prepare( $"."query['query']);
+                            $"."sth->execute();
+                            $"."retval['r']['c'] = array(
+                                array('data' =>  $"."query['id'], 'title' =>  $"."query['nombre'])
+                            );
+                            while ( $"."row =  $"."sth->fetch(PDO::FETCH_ASSOC)) {
+                                array_push( $"."retval['r']['d'],  $"."row);
+                            }
+                            $"."retval['data'] = true;
+                        } catch (PDOExeption  $"."e) {
+                            $"."retval['error'] = true;
+                            $"."retval['r'] =  $"."e;
+                        }
+                        return json_encode( $"."retval);
+                    }";
+                return $document;
+    }
+    public function get_setQuery($database,$columns)
+    {
+        $case ="";
+        for ($i=1; $i < count($columns['name']); $i++) { 
+            if($columns['key'][$i]=='MUL'){
+                $case = $case . $this->get_id_name($database,$columns['name'][$i]);
+            }
+        }
+        $document = "public function setQuery( $"."variable)
+                {
+                    $"."retval = array(
+                        'id' => '',
+                        'nombre' => '',
+                        'query' => ''
+                    );
+                    switch ( $"."variable) {
+                        $case
+                        default:
+                            break;
+                    }
+                }";
+        return $document;
+    }
+    public function get_id_name($dbname,$name)
+    {
+            $columns = array(
+                'name'=>array(),
+                'type'=>array(),
+                'key'=>array(),
+            );
+            $tablename = "";
+            $document = "";
+            $sth = "SELECT TABLE_NAME FROM information_schema.columns WHERE table_schema='$dbname' AND COLUMN_KEY ='PRI' AND COLUMN_NAME = '$name'";
+            $cnx = $this->connectSqlSrv();
+            $sth = $cnx->prepare($sth);
+            $sth->execute();
+            if ($sth->rowCount()) {
+                while ($row = $sth->fetch(PDO::FETCH_ASSOC)) 
+                {
+                    $tablename =$row['TABLE_NAME'];
+                }
+                echo $tablename;
+                $sth = "SHOW COLUMNS FROM $tablename FROM $dbname";                
+                $cnx = $this->connectSqlSrv();
+                $sth = $cnx->prepare($sth);
+                $sth->execute();
+                while ($row = $sth->fetch(PDO::FETCH_ASSOC)) 
+                {
+                    array_push($columns['name'], $row['Field']);
+                    array_push($columns['type'], $row['Type']);
+                    array_push($columns['key'], $row['Key']);
+                }
+                $id = $columns['name'][0];
+                $name = $columns['name'][1];
+                $document = "case '$tablename':
+                            $"."retval['id'] = '$id';
+                            $"."retval['nombre'] = '$name';
+                            $"."retval['column'] = '$id-$name';
+                            $"."retval['query'] = \"SELECT $id,$name FROM  $"."variable\";
+                            return   $"."retval;
+                            break;";
+            }
+            
+            return $document;
     }
     public function get_fecha($columns)
     {

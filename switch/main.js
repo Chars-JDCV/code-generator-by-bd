@@ -312,9 +312,10 @@ $(document).ready(function () {
                         } else {
                             alertas('Se ha editado Correctamente', 'success');
                             get();
+                            $('#modal_update').modal('hide');
                         }
                     });
-                    $('#tb_switch_good_depts _update')[0].reset();
+                    
                     return false;
                 }function _create() {
                     var datos = {
@@ -326,9 +327,10 @@ $(document).ready(function () {
                         } else {
                             alertas('Se ha registrado Correctamente', 'success');
                             get();
+                            $('#modal_create').modal('hide');
                         }
                     });
-                    $('#tb_switch_good_depts _create')[0].reset();
+                    
                     return false;
                 }function deletex(id) {
                     var datos = {
@@ -357,11 +359,10 @@ $(document).ready(function () {
                             alertas(e.r, 'danger');
                         } else {
                             alertas('Registro Eliminado Correctamente', 'success');
+                            $('#modal_delete').modal('hide');
                             get();
                         }
-                        $('#modal_delete').modal('hide');
                     });
-                    $('#tb_switch_good_depts_delete')[0].reset();
                     return false;
                 }function cancelar(form) {
                     $('#' + form)[0].reset();

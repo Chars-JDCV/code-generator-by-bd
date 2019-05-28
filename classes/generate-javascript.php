@@ -397,7 +397,7 @@ class generate_javascript
     {
         $value = "";
         if ($key == 'MUL' || $key == 'PRI') {
-            $value = "FullSelect('#$column$typeform', '$table');";
+            $value = $value. "FullSelect('#$column$typeform', '$table');";
         }
         return $value;
     }
@@ -565,9 +565,10 @@ class generate_javascript
                         } else {
                             alertas('Se ha editado Correctamente', 'success');
                             get();
+                            $('#modal$typeform').modal('hide');
                         }
                     });
-                    $('#$table $typeform')[0].reset();
+                    
                     return false;
                 }";
         return $value;
@@ -596,9 +597,10 @@ class generate_javascript
                         } else {
                             alertas('Se ha registrado Correctamente', 'success');
                             get();
+                            $('#modal$typeform').modal('hide');
                         }
                     });
-                    $('#$table $typeform')[0].reset();
+                    
                     return false;
                 }";
         return $value;
@@ -663,11 +665,10 @@ class generate_javascript
                             alertas(e.r, 'danger');
                         } else {
                             alertas('Registro Eliminado Correctamente', 'success');
+                            $('#modal$typeform').modal('hide');
                             get();
                         }
-                        $('#modal$typeform').modal('hide');
                     });
-                    $('#$table$typeform')[0].reset();
                     return false;
                 }";
         return $value;

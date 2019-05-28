@@ -70,7 +70,7 @@ class Manager extends ConnectionManager
         $objform->generate_code_form_delete($columns,$table);
         $objform->generate_code_form_read($columns,$table);
         $objmain->generate_code_main($columns,$table);
-        $objserver->generate_code_server($columns,$table);
+        $objserver->generate_code_server($columns,$table,$dbname);
     }
     private function generate_crud($table, $columns)
     {
