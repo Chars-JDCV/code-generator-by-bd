@@ -75,7 +75,7 @@ class generate_form extends generate_javascript
     public function get_form($value,$typeform,$div,$table)
     {
         $form_code="
-            <form id='$table$typeform'>
+            <form id='$table$typeform' name='$table$typeform'>
                 $div
                 <div class='modal-footer'>
                     <button id='btn$typeform' class='btn btn-primary'>$value</button>
@@ -87,7 +87,7 @@ class generate_form extends generate_javascript
     public function get_body($message,$typeform,$form_code)
     {
         //cambiar la clase a modal para que no se miren
-        $body = "<div class='modal$typeform' id='modal$typeform' tabindex='-1' role='dialog'>
+        $body = "<div class='modal' id='modal$typeform' tabindex='-1' role='dialog'>
                         <div class='modal-dialog' role='document'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
@@ -153,16 +153,16 @@ class generate_form extends generate_javascript
         $label = "";
         if ($key=='MUL' || $key=='PRI') {
             if ($numbercolumn== 0 && $key=='PRI') {
-                $input = "<input type='hidden' id= '".$name.$typeform."' class='form-control'>";
+                $input = "<input type='hidden' id= '".$name.$typeform."' name= '".$name.$typeform."' class='form-control'>";
             }
             else {
                 $label = "<label for='".$name.$typeform."'>$name</label>";
-                $input = "<select  id= '".$name.$typeform."' class='form-control'></select>";
+                $input = "<select  id= '".$name.$typeform."' name= '".$name.$typeform."' class='form-control'></select>";
             }
         }
         else {
             $label = "<label for='".$name.$typeform."'>$name</label>";
-            $input = "<input type='".$this->get_type($type)."' id= '".$name.$typeform."' class='form-control'>";
+            $input = "<input type='".$this->get_type($type)."' id= '".$name.$typeform."' name= '".$name.$typeform."' class='form-control'>";
         }
         $div = "<div class='form-group'>
                     $label

@@ -7,45 +7,33 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_lending_update: {
-                        required: true, 
-                        
+                             required:true
                     },date_lent_update: {
-                        required: true, 
-                        
+                             required:true
                     },date_returned_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_person_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_good_update: {
-                        required: true, 
-                        
+                             required:true
                     },quantity_update: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_lending_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_lending_update',
                     },date_lent_update: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_lent_update',
                     },date_returned_update: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_returned_update',
                     },id_person_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_person_update',
                     },id_good_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_update',
                     },quantity_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Quantity_update',
                     },
                             },
                             honkeyup: false,
@@ -71,46 +59,30 @@ $(document).ready(function () {
                             validClass: 'valid',
                             rules:
                             {
-                                id_lending_create: {
-                        required: true, 
-                        
-                    },date_lent_create: {
-                        required: true, 
-                        
+                                date_lent_create: {
+                             required:true
                     },date_returned_create: {
-                        required: true, 
-                        
+                             required:true
                     },id_person_create: {
-                        required: true, 
-                        
+                             required:true
                     },id_good_create: {
-                        required: true, 
-                        
+                             required:true
                     },quantity_create: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
-                                id_lending_create: {
-                        required: true, 
-                        
-                    },date_lent_create: {
-                        required: true, 
-                        
+                                date_lent_create: {
+                        required:'Seleccione Date_lent_create',
                     },date_returned_create: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_returned_create',
                     },id_person_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_person_create',
                     },id_good_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_create',
                     },quantity_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Quantity_create',
                     },
                             },
                             honkeyup: false,
@@ -137,51 +109,39 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_lending_delete: {
-                        required: true, 
-                        
+                             required:true
                     },date_lent_delete: {
-                        required: true, 
-                        
+                             required:true
                     },date_returned_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_person_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_good_delete: {
-                        required: true, 
-                        
+                             required:true
                     },quantity_delete: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_lending_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_lending_delete',
                     },date_lent_delete: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_lent_delete',
                     },date_returned_delete: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_returned_delete',
                     },id_person_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_person_delete',
                     },id_good_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_delete',
                     },quantity_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Quantity_delete',
                     },
                             },
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                _delete(idDel)();
+                                _delete(idDel);
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -321,7 +281,7 @@ $(document).ready(function () {
                     $('#tblTabla').DataTable(options);
                 }function editx(id) {
                     var datos = {
-                        id_lending_update: id
+                        id_lending: id
                     };
                     $.post('main.php', { action: 'consult', dt: datos }, function(e) {
                         if (e.error) {
@@ -335,7 +295,7 @@ $(document).ready(function () {
                     $('#id_lending_update').val(d[0]['id_lending']);$('#date_lent_update').val(d[0]['date_lent']);$('#date_returned_update').val(d[0]['date_returned']);$('#id_person_update').val(d[0]['id_person']);$('#id_good_update').val(d[0]['id_good']);$('#quantity_update').val(d[0]['quantity']);
                     $('#modal_update').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -387,8 +347,8 @@ $(document).ready(function () {
                     $('#id_lending_delete').val(d[0]['id_lending']);$('#date_lent_delete').val(d[0]['date_lent']);$('#date_returned_delete').val(d[0]['date_returned']);$('#id_person_delete').val(d[0]['id_person']);$('#id_good_delete').val(d[0]['id_good']);$('#quantity_delete').val(d[0]['quantity']);
                     $('#modal_delete').modal();
                     idDel = d[0]['id_lending'];
-                
-                }function deletex(id) {
+
+                }function _delete(id) {
                     var datos = {
                         id_lending: id
                     };
@@ -407,7 +367,7 @@ $(document).ready(function () {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }function alertas(mensaje, tipo) {
                     $.notify({
                         // options

@@ -7,87 +7,61 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_good_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_sub_departament_update: {
-                        required: true, 
-                        
+                             required:true
                     },short_good_name_update: {
-                        required: true, 
-                        
+                             required:true
                     },full_good_name_update: {
-                        required: true, 
-                        
+                             required:true
                     },good_description_update: {
-                        required: true, 
-                        
+                             required:true
                     },good_brand_update: {
-                        required: true, 
-                        
+                             required:true
                     },good_model_update: {
-                        required: true, 
-                        
+                             required:true
                     },sibisep_serial_code_update: {
-                        required: true, 
-                        
+                             required:true
                     },good_value_update: {
-                        required: true, 
-                        
+                             required:true
                     },date_update: {
-                        required: true, 
-                        
+                             required:true
                     },good_exists_update: {
-                        required: true, 
-                        
+                             required:true
                     },quantity_update: {
-                        required: true, 
-                        
+                             required:true
                     },is_unregistered_update: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_good_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_update',
                     },id_sub_departament_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_sub_departament_update',
                     },short_good_name_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Short_good_name_update',
                     },full_good_name_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Full_good_name_update',
                     },good_description_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_description_update',
                     },good_brand_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_brand_update',
                     },good_model_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_model_update',
                     },sibisep_serial_code_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Sibisep_serial_code_update',
                     },good_value_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_value_update',
                     },date_update: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_update',
                     },good_exists_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_exists_update',
                     },quantity_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Quantity_update',
                     },is_unregistered_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Is_unregistered_update',
                     },
                             },
                             honkeyup: false,
@@ -113,88 +87,58 @@ $(document).ready(function () {
                             validClass: 'valid',
                             rules:
                             {
-                                id_good_create: {
-                        required: true, 
-                        
-                    },id_sub_departament_create: {
-                        required: true, 
-                        
+                                id_sub_departament_create: {
+                             required:true
                     },short_good_name_create: {
-                        required: true, 
-                        
+                             required:true
                     },full_good_name_create: {
-                        required: true, 
-                        
+                             required:true
                     },good_description_create: {
-                        required: true, 
-                        
+                             required:true
                     },good_brand_create: {
-                        required: true, 
-                        
+                             required:true
                     },good_model_create: {
-                        required: true, 
-                        
+                             required:true
                     },sibisep_serial_code_create: {
-                        required: true, 
-                        
+                             required:true
                     },good_value_create: {
-                        required: true, 
-                        
+                             required:true
                     },date_create: {
-                        required: true, 
-                        
+                             required:true
                     },good_exists_create: {
-                        required: true, 
-                        
+                             required:true
                     },quantity_create: {
-                        required: true, 
-                        
+                             required:true
                     },is_unregistered_create: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
-                                id_good_create: {
-                        required: true, 
-                        
-                    },id_sub_departament_create: {
-                        required: true, 
-                        
+                                id_sub_departament_create: {
+                        required:'Ingrese Id_sub_departament_create',
                     },short_good_name_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Short_good_name_create',
                     },full_good_name_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Full_good_name_create',
                     },good_description_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_description_create',
                     },good_brand_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_brand_create',
                     },good_model_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_model_create',
                     },sibisep_serial_code_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Sibisep_serial_code_create',
                     },good_value_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_value_create',
                     },date_create: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_create',
                     },good_exists_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_exists_create',
                     },quantity_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Quantity_create',
                     },is_unregistered_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Is_unregistered_create',
                     },
                             },
                             honkeyup: false,
@@ -221,93 +165,67 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_good_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_sub_departament_delete: {
-                        required: true, 
-                        
+                             required:true
                     },short_good_name_delete: {
-                        required: true, 
-                        
+                             required:true
                     },full_good_name_delete: {
-                        required: true, 
-                        
+                             required:true
                     },good_description_delete: {
-                        required: true, 
-                        
+                             required:true
                     },good_brand_delete: {
-                        required: true, 
-                        
+                             required:true
                     },good_model_delete: {
-                        required: true, 
-                        
+                             required:true
                     },sibisep_serial_code_delete: {
-                        required: true, 
-                        
+                             required:true
                     },good_value_delete: {
-                        required: true, 
-                        
+                             required:true
                     },date_delete: {
-                        required: true, 
-                        
+                             required:true
                     },good_exists_delete: {
-                        required: true, 
-                        
+                             required:true
                     },quantity_delete: {
-                        required: true, 
-                        
+                             required:true
                     },is_unregistered_delete: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_good_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_delete',
                     },id_sub_departament_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_sub_departament_delete',
                     },short_good_name_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Short_good_name_delete',
                     },full_good_name_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Full_good_name_delete',
                     },good_description_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_description_delete',
                     },good_brand_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_brand_delete',
                     },good_model_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_model_delete',
                     },sibisep_serial_code_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Sibisep_serial_code_delete',
                     },good_value_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_value_delete',
                     },date_delete: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_delete',
                     },good_exists_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Good_exists_delete',
                     },quantity_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Quantity_delete',
                     },is_unregistered_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Is_unregistered_delete',
                     },
                             },
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                _delete(idDel)();
+                                _delete(idDel);
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -447,7 +365,7 @@ $(document).ready(function () {
                     $('#tblTabla').DataTable(options);
                 }function editx(id) {
                     var datos = {
-                        id_good_update: id
+                        id_good: id
                     };
                     $.post('main.php', { action: 'consult', dt: datos }, function(e) {
                         if (e.error) {
@@ -461,7 +379,7 @@ $(document).ready(function () {
                     $('#id_good_update').val(d[0]['id_good']);$('#id_sub_departament_update').val(d[0]['id_sub_departament']);$('#short_good_name_update').val(d[0]['short_good_name']);$('#full_good_name_update').val(d[0]['full_good_name']);$('#good_description_update').val(d[0]['good_description']);$('#good_brand_update').val(d[0]['good_brand']);$('#good_model_update').val(d[0]['good_model']);$('#sibisep_serial_code_update').val(d[0]['sibisep_serial_code']);$('#good_value_update').val(d[0]['good_value']);$('#date_update').val(d[0]['date']);$('#good_exists_update').val(d[0]['good_exists']);$('#quantity_update').val(d[0]['quantity']);$('#is_unregistered_update').val(d[0]['is_unregistered']);
                     $('#modal_update').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -513,8 +431,8 @@ $(document).ready(function () {
                     $('#id_good_delete').val(d[0]['id_good']);$('#id_sub_departament_delete').val(d[0]['id_sub_departament']);$('#short_good_name_delete').val(d[0]['short_good_name']);$('#full_good_name_delete').val(d[0]['full_good_name']);$('#good_description_delete').val(d[0]['good_description']);$('#good_brand_delete').val(d[0]['good_brand']);$('#good_model_delete').val(d[0]['good_model']);$('#sibisep_serial_code_delete').val(d[0]['sibisep_serial_code']);$('#good_value_delete').val(d[0]['good_value']);$('#date_delete').val(d[0]['date']);$('#good_exists_delete').val(d[0]['good_exists']);$('#quantity_delete').val(d[0]['quantity']);$('#is_unregistered_delete').val(d[0]['is_unregistered']);
                     $('#modal_delete').modal();
                     idDel = d[0]['id_good'];
-                
-                }function deletex(id) {
+
+                }function _delete(id) {
                     var datos = {
                         id_good: id
                     };
@@ -533,7 +451,7 @@ $(document).ready(function () {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }function alertas(mensaje, tipo) {
                     $.notify({
                         // options

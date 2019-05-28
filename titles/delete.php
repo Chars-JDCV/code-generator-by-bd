@@ -1,4 +1,4 @@
-<div class='modal_delete' id='modal_delete' tabindex='-1' role='dialog'>
+<div class='modal' id='modal_delete' tabindex='-1' role='dialog'>
                         <div class='modal-dialog' role='document'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
@@ -9,13 +9,13 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='tb_titles_delete'>
+            <form id='tb_titles_delete' name='tb_titles_delete'>
                 <div class='form-group'>
                     
-                    <input type='hidden' id= 'id_title_delete' class='form-control'>
+                    <input type='hidden' id= 'id_title_delete' name= 'id_title_delete' class='form-control'>
                 </div><div class='form-group'>
                     <label for='title_delete'>title</label>
-                    <input type='text' id= 'title_delete' class='form-control'>
+                    <input type='text' id= 'title_delete' name= 'title_delete' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_delete' class='btn btn-primary'>Eliminar</button>

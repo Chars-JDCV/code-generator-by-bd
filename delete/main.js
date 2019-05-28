@@ -7,39 +7,29 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_delete_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_good_update: {
-                        required: true, 
-                        
+                             required:true
                     },date_of_deletion_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_sub_dept_update: {
-                        required: true, 
-                        
+                             required:true
                     },value_deleted_good_update: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_delete_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_delete_update',
                     },id_good_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_update',
                     },date_of_deletion_update: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_of_deletion_update',
                     },id_sub_dept_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_sub_dept_update',
                     },value_deleted_good_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Value_deleted_good_update',
                     },
                             },
                             honkeyup: false,
@@ -65,40 +55,26 @@ $(document).ready(function () {
                             validClass: 'valid',
                             rules:
                             {
-                                id_delete_create: {
-                        required: true, 
-                        
-                    },id_good_create: {
-                        required: true, 
-                        
+                                id_good_create: {
+                             required:true
                     },date_of_deletion_create: {
-                        required: true, 
-                        
+                             required:true
                     },id_sub_dept_create: {
-                        required: true, 
-                        
+                             required:true
                     },value_deleted_good_create: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
-                                id_delete_create: {
-                        required: true, 
-                        
-                    },id_good_create: {
-                        required: true, 
-                        
+                                id_good_create: {
+                        required:'Ingrese Id_good_create',
                     },date_of_deletion_create: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_of_deletion_create',
                     },id_sub_dept_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_sub_dept_create',
                     },value_deleted_good_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Value_deleted_good_create',
                     },
                             },
                             honkeyup: false,
@@ -125,45 +101,35 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_delete_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_good_delete: {
-                        required: true, 
-                        
+                             required:true
                     },date_of_deletion_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_sub_dept_delete: {
-                        required: true, 
-                        
+                             required:true
                     },value_deleted_good_delete: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_delete_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_delete_delete',
                     },id_good_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_delete',
                     },date_of_deletion_delete: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_of_deletion_delete',
                     },id_sub_dept_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_sub_dept_delete',
                     },value_deleted_good_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Value_deleted_good_delete',
                     },
                             },
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                _delete(idDel)();
+                                _delete(idDel);
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -303,7 +269,7 @@ $(document).ready(function () {
                     $('#tblTabla').DataTable(options);
                 }function editx(id) {
                     var datos = {
-                        id_delete_update: id
+                        id_delete: id
                     };
                     $.post('main.php', { action: 'consult', dt: datos }, function(e) {
                         if (e.error) {
@@ -317,7 +283,7 @@ $(document).ready(function () {
                     $('#id_delete_update').val(d[0]['id_delete']);$('#id_good_update').val(d[0]['id_good']);$('#date_of_deletion_update').val(d[0]['date_of_deletion']);$('#id_sub_dept_update').val(d[0]['id_sub_dept']);$('#value_deleted_good_update').val(d[0]['value_deleted_good']);
                     $('#modal_update').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -369,8 +335,8 @@ $(document).ready(function () {
                     $('#id_delete_delete').val(d[0]['id_delete']);$('#id_good_delete').val(d[0]['id_good']);$('#date_of_deletion_delete').val(d[0]['date_of_deletion']);$('#id_sub_dept_delete').val(d[0]['id_sub_dept']);$('#value_deleted_good_delete').val(d[0]['value_deleted_good']);
                     $('#modal_delete').modal();
                     idDel = d[0]['id_delete'];
-                
-                }function deletex(id) {
+
+                }function _delete(id) {
                     var datos = {
                         id_delete: id
                     };
@@ -389,7 +355,7 @@ $(document).ready(function () {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }function alertas(mensaje, tipo) {
                     $.notify({
                         // options

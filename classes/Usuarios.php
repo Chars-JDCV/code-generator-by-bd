@@ -7,34 +7,34 @@ class Manager extends ConnectionManager
     public function get()
     {
         $retval = array(
-            "data" => false,
-            "error" => false,
-            "r" => array("c" => array(), "d" => array())
+            'data' => false,
+            'error' => false,
+            'r' => array('c' => array(), 'd' => array())
         );
 
         try {
 
             $cnx = $this->connectSqlSrv();
-            $sth = "CALL sp_get_usuario();";
+            $sth = 'CALL sp_get_usuario();';
             $sth = $cnx->prepare($sth);
             $sth->execute();
-            $retval["r"]["c"] = array(
-                array("data" => "id_usuario", "title" => "ID Usuario"),
-                array("data" => "username", "title" => "Username"),
-                array("data" => "password", "title" => "Password"),
-                array("data" => "id_privilegio", "title" => "Privilegio"),
-                array("data" => "Actions", "title" => "Acciones")
+            $retval['r']['c'] = array(
+                array('data' => 'id_usuario', 'title' => 'ID Usuario'),
+                array('data' => 'username', 'title' => 'Username'),
+                array('data' => 'password', 'title' => 'Password'),
+                array('data' => 'id_privilegio', 'title' => 'Privilegio'),
+                array('data' => 'Actions', 'title' => 'Acciones')
             );
             while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-                $row["Actions"] = "<button class='btn btn-danger' onclick='deletex(" . $row["id_usuario"] . ")'><i class='far fa-trash-alt'></i></button>
-                <button class='btn btn-warning' onclick='editx(" . $row["id_usuario"] . ")'><i class='far fa-edit'></i></button>";
-                array_push($retval["r"]["d"], $row);
+                $row['Actions'] = "<button class='btn btn-danger' onclick='deletex(" . $row['id_usuario'] . ")'><i class='far fa-trash-alt'></i></button>
+                <button class='btn btn-warning' onclick='editx(" . $row['id_usuario'] . ")'><i class='far fa-edit'></i></button>";
+                array_push($retval['r']['d'], $row);
             }
 
-            $retval["data"] = true;
+            $retval['data'] = true;
         } catch (PDOExeption $e) {
-            $retval["error"] = true;
-            $retval["r"] = $e;
+            $retval['error'] = true;
+            $retval['r'] = $e;
         }
         return json_encode($retval);
     }
@@ -42,27 +42,27 @@ class Manager extends ConnectionManager
     public function set($dt)
     {
         $retval = array(
-            "data" => false,
-            "error" => false,
-            "r" => ""
+            'data' => false,
+            'error' => false,
+            'r' => ''
         );
         try {
             $cnx = $this->connectSqlSrv();
             $estatus = array(json_decode($this->VerificarRegistros($dt), true));
             if (empty($estatus[0]['r']['d'][0])) {
-                $sth = $cnx->prepare("CALL sp_insert_usuario(:username,:password,:id_privilegio);");
+                $sth = $cnx->prepare('CALL sp_insert_usuario(:username,:password,:id_privilegio);');
                 $dt['password'] = password_hash($dt['password'], PASSWORD_DEFAULT);
                 $sth->execute($dt);
-                if ($retval["r"] = $sth->rowCount()) {
-                    $retval["data"] = true;
+                if ($retval['r'] = $sth->rowCount()) {
+                    $retval['data'] = true;
                 }
             } else {
-                $retval["error"] = true;
-                $retval["r"] = 'Registro Existente';
+                $retval['error'] = true;
+                $retval['r'] = 'Registro Existente';
             }
         } catch (PDOExeption $e) {
-            $retval["error"] = true;
-            $retval["r"] = $e;
+            $retval['error'] = true;
+            $retval['r'] = $e;
         }
         return json_encode($retval);
     }
@@ -70,30 +70,30 @@ class Manager extends ConnectionManager
     public function delete($dt)
     {
         $retval = array(
-            "data" => false,
-            "error" => false,
-            "r" => ""
+            'data' => false,
+            'error' => false,
+            'r' => ''
         );
 
         try {
             $cnx = $this->connectSqlSrv();
-            $sth = $cnx->prepare("CALL sp_delete_usuario(:id_usuario);");
+            $sth = $cnx->prepare('CALL sp_delete_usuario(:id_usuario);');
             $sth->execute($dt);
-            if ($retval["r"] = $sth->rowCount()) {
-                $retval["data"] = true;
+            if ($retval['r'] = $sth->rowCount()) {
+                $retval['data'] = true;
             }
         } catch (PDOExeption $e) {
-            $retval["error"] = true;
-            $retval["r"] = $e;
+            $retval['error'] = true;
+            $retval['r'] = $e;
         }
         return json_encode($retval);
     }
     public function update($dt)
     {
         $retval = array(
-            "data" => false,
-            "error" => false,
-            "r" => ""
+            'data' => false,
+            'error' => false,
+            'r' => ''
         );
 
         try {
@@ -102,89 +102,89 @@ class Manager extends ConnectionManager
                 $estatus = array(json_decode($this->VerificarRegistros($dt), true));
                 if (empty($estatus[0]['r']['d'][0])) {
                     $cnx = $this->connectSqlSrv();
-                    $sth = $cnx->prepare("CALL sp_update_usuario(:username,:password,:id_privilegio,:id_usuario);");
+                    $sth = $cnx->prepare('CALL sp_update_usuario(:username,:password,:id_privilegio,:id_usuario);');
                     $sth->execute($dt);
-                    if ($retval["r"] = $sth->rowCount()) {
-                        $retval["data"] = true;
+                    if ($retval['r'] = $sth->rowCount()) {
+                        $retval['data'] = true;
                     }
                 } else {
-                    $retval["error"] = true;
-                    $retval["r"] = 'Registro Existente';
+                    $retval['error'] = true;
+                    $retval['r'] = 'Registro Existente';
                 }
             } else {
                 $estatus = array(json_decode($this->VerificarRegistros($dt), true));
                 if (empty($estatus[0]['r']['d'][0])) {
                     $cnx = $this->connectSqlSrv();
-                    $sth = $cnx->prepare("CALL sp_update_usuario(:username,:password,:id_privilegio,:id_usuario);");
+                    $sth = $cnx->prepare('CALL sp_update_usuario(:username,:password,:id_privilegio,:id_usuario);');
                     $dt['password'] = password_hash($dt['password'], PASSWORD_DEFAULT);
                     $sth->execute($dt);
-                    if ($retval["r"] = $sth->rowCount()) {
-                        $retval["data"] = true;
+                    if ($retval['r'] = $sth->rowCount()) {
+                        $retval['data'] = true;
                     }
                 } else {
                     if ($estatus[0]['r']['d'][0]['id_usuario'] == $dt['id_usuario']) {
                         # code...
                         $cnx = $this->connectSqlSrv();
-                        $sth = $cnx->prepare("CALL sp_update_usuario(:username,:password,:id_privilegio,:id_usuario);");
+                        $sth = $cnx->prepare('CALL sp_update_usuario(:username,:password,:id_privilegio,:id_usuario);');
                         $dt['password'] = password_hash($dt['password'], PASSWORD_DEFAULT);
                         $sth->execute($dt);
-                        if ($retval["r"] = $sth->rowCount()) {
-                            $retval["data"] = true;
+                        if ($retval['r'] = $sth->rowCount()) {
+                            $retval['data'] = true;
                         }
                     }
                     else{
-                        $retval["error"] = true;
-                        $retval["r"] = 'Registro Existente';
+                        $retval['error'] = true;
+                        $retval['r'] = 'Registro Existente';
                     }
                 }
             }
         } catch (PDOExeption $e) {
-            $retval["error"] = true;
-            $retval["r"] = $e;
+            $retval['error'] = true;
+            $retval['r'] = $e;
         }
         return json_encode($retval);
     }
     public function VerificarRegistros($dt)
     {
         $retval = array(
-            "data" => false,
-            "error" => false,
-            "r" => array("d" => array())
+            'data' => false,
+            'error' => false,
+            'r' => array('d' => array())
         );
 
         try {
             $cnx = $this->connectSqlSrv();
             if (empty($dt['id_usuario'])) {
-                $dt["id_usuario"] = 0;
-                $dt["accion"] = 0;
+                $dt['id_usuario'] = 0;
+                $dt['accion'] = 0;
             } else {
-                $dt["accion"] = 0;
+                $dt['accion'] = 0;
             }
-            $sth = $cnx->prepare("CALL sp_buscar_usuario('" . $dt['username'] . "','" . $dt['id_usuario'] . "','" . $dt['id_privilegio'] . "','" . $dt['accion'] . "') ;");
+            $sth = $cnx->prepare('');
             $sth->execute();
             while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-                array_push($retval["r"]["d"], $row);
+                array_push($retval['r']['d'], $row);
             }
-            $retval["data"] = true;
+            $retval['data'] = true;
         } catch (PDOExeption $e) {
-            $retval["error"] = true;
-            $retval["r"] = $e;
+            $retval['error'] = true;
+            $retval['r'] = $e;
         }
         return json_encode($retval);
     }
     public function setQuery($variable)
     {
         $retval = array(
-            "id" => '',
-            "nombre" => '',
+            'id' => '',
+            'nombre' => '',
             'query' => ''
         );
         switch ($variable) {
             case 'privilegios':
-                $retval["id"] = 'id_privilegio';
-                $retval["nombre"] = 'privilegio';
-                $retval["column"] = 'id_privilegio-privilegio';
-                $retval["query"] = "CALL sp_set_select('tb_privilegios','" . $retval["column"] . "')";
+                $retval['id'] = 'id_privilegio';
+                $retval['nombre'] = 'privilegio';
+                $retval['column'] = 'id_privilegio-privilegio';
+                $retval['query'] = '';
                 return  $retval;
                 break;
             default:
@@ -195,8 +195,8 @@ class Manager extends ConnectionManager
     {
         try {
             $cnx = $this->connectSqlSrv();
-            $dt["accion"] = 1;
-            $sth = $cnx->prepare("CALL sp_buscar_usuario('" . $dt['username'] . "','" . $dt['id_usuario'] . "','" . $dt['id_privilegio'] . "','" . $dt['accion'] . "') ;");
+            $dt['accion'] = 1;
+            $sth = $cnx->prepare('');
             $sth->execute($dt);
             while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
                 return $row['password'];
@@ -208,9 +208,9 @@ class Manager extends ConnectionManager
     public function consultas($dt)
     {
         $retval = array(
-            "data" => false,
-            "error" => false,
-            "r" => array("d" => array())
+            'data' => false,
+            'error' => false,
+            'r' => array('d' => array())
         );
 
         try {
@@ -221,15 +221,15 @@ class Manager extends ConnectionManager
                 $dt['accion'] = 2;
             }
             $cnx = $this->connectSqlSrv();
-            $sth = $cnx->prepare("CALL sp_buscar_usuario('" . $dt['username'] . "','" . $dt['id_usuario'] . "','" . $dt['id_privilegio'] . "','" . $dt['accion'] . "') ;");
+            $sth = $cnx->prepare('');
             $sth->execute($dt);
             while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-                array_push($retval["r"]["d"], $row);
+                array_push($retval['r']['d'], $row);
             }
-            $retval["data"] = true;
+            $retval['data'] = true;
         } catch (PDOExeption $e) {
-            $retval["error"] = true;
-            $retval["r"] = $e;
+            $retval['error'] = true;
+            $retval['r'] = $e;
         }
         return json_encode($retval);
     }
@@ -237,24 +237,24 @@ class Manager extends ConnectionManager
     {
         $query = $this->setQuery($dt);
         $retval = array(
-            "data" => false,
-            "error" => false,
-            "r" => array("c" => array(), "d" => array())
+            'data' => false,
+            'error' => false,
+            'r' => array('c' => array(), 'd' => array())
         );
         try {
             $cnx = $this->connectSqlSrv();
             $sth = $cnx->prepare($query['query']);
             $sth->execute();
-            $retval["r"]["c"] = array(
-                array("data" => $query['id'], "title" => $query['nombre'])
+            $retval['r']['c'] = array(
+                array('data' => $query['id'], 'title' => $query['nombre'])
             );
             while ($row = $sth->fetch(PDO::FETCH_ASSOC)) {
-                array_push($retval["r"]["d"], $row);
+                array_push($retval['r']['d'], $row);
             }
-            $retval["data"] = true;
+            $retval['data'] = true;
         } catch (PDOExeption $e) {
-            $retval["error"] = true;
-            $retval["r"] = $e;
+            $retval['error'] = true;
+            $retval['r'] = $e;
         }
         return json_encode($retval);
     }

@@ -7,21 +7,17 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_title_update: {
-                        required: true, 
-                        
+                             required:true
                     },title_update: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_title_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_title_update',
                     },title_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Title_update',
                     },
                             },
                             honkeyup: false,
@@ -47,22 +43,14 @@ $(document).ready(function () {
                             validClass: 'valid',
                             rules:
                             {
-                                id_title_create: {
-                        required: true, 
-                        
-                    },title_create: {
-                        required: true, 
-                        
+                                title_create: {
+                             required:true
                     },
                             },
                             messages:
                             {
-                                id_title_create: {
-                        required: true, 
-                        
-                    },title_create: {
-                        required: true, 
-                        
+                                title_create: {
+                        required:'Ingrese Title_create',
                     },
                             },
                             honkeyup: false,
@@ -89,27 +77,23 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_title_delete: {
-                        required: true, 
-                        
+                             required:true
                     },title_delete: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_title_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_title_delete',
                     },title_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Title_delete',
                     },
                             },
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                _delete(idDel)();
+                                _delete(idDel);
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -249,7 +233,7 @@ $(document).ready(function () {
                     $('#tblTabla').DataTable(options);
                 }function editx(id) {
                     var datos = {
-                        id_title_update: id
+                        id_title: id
                     };
                     $.post('main.php', { action: 'consult', dt: datos }, function(e) {
                         if (e.error) {
@@ -263,7 +247,7 @@ $(document).ready(function () {
                     $('#id_title_update').val(d[0]['id_title']);$('#title_update').val(d[0]['title']);
                     $('#modal_update').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -315,8 +299,8 @@ $(document).ready(function () {
                     $('#id_title_delete').val(d[0]['id_title']);$('#title_delete').val(d[0]['title']);
                     $('#modal_delete').modal();
                     idDel = d[0]['id_title'];
-                
-                }function deletex(id) {
+
+                }function _delete(id) {
                     var datos = {
                         id_title: id
                     };
@@ -335,7 +319,7 @@ $(document).ready(function () {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }function alertas(mensaje, tipo) {
                     $.notify({
                         // options

@@ -7,33 +7,25 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_departament_update: {
-                        required: true, 
-                        
+                             required:true
                     },short_dept_name_update: {
-                        required: true, 
-                        
+                             required:true
                     },full_dept_name_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_chief_update: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_departament_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_departament_update',
                     },short_dept_name_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Short_dept_name_update',
                     },full_dept_name_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Full_dept_name_update',
                     },id_chief_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_chief_update',
                     },
                             },
                             honkeyup: false,
@@ -59,34 +51,22 @@ $(document).ready(function () {
                             validClass: 'valid',
                             rules:
                             {
-                                id_departament_create: {
-                        required: true, 
-                        
-                    },short_dept_name_create: {
-                        required: true, 
-                        
+                                short_dept_name_create: {
+                             required:true
                     },full_dept_name_create: {
-                        required: true, 
-                        
+                             required:true
                     },id_chief_create: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
-                                id_departament_create: {
-                        required: true, 
-                        
-                    },short_dept_name_create: {
-                        required: true, 
-                        
+                                short_dept_name_create: {
+                        required:'Ingrese Short_dept_name_create',
                     },full_dept_name_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Full_dept_name_create',
                     },id_chief_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_chief_create',
                     },
                             },
                             honkeyup: false,
@@ -113,39 +93,31 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_departament_delete: {
-                        required: true, 
-                        
+                             required:true
                     },short_dept_name_delete: {
-                        required: true, 
-                        
+                             required:true
                     },full_dept_name_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_chief_delete: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_departament_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_departament_delete',
                     },short_dept_name_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Short_dept_name_delete',
                     },full_dept_name_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Full_dept_name_delete',
                     },id_chief_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_chief_delete',
                     },
                             },
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                _delete(idDel)();
+                                _delete(idDel);
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -285,7 +257,7 @@ $(document).ready(function () {
                     $('#tblTabla').DataTable(options);
                 }function editx(id) {
                     var datos = {
-                        id_departament_update: id
+                        id_departament: id
                     };
                     $.post('main.php', { action: 'consult', dt: datos }, function(e) {
                         if (e.error) {
@@ -299,7 +271,7 @@ $(document).ready(function () {
                     $('#id_departament_update').val(d[0]['id_departament']);$('#short_dept_name_update').val(d[0]['short_dept_name']);$('#full_dept_name_update').val(d[0]['full_dept_name']);$('#id_chief_update').val(d[0]['id_chief']);
                     $('#modal_update').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -351,8 +323,8 @@ $(document).ready(function () {
                     $('#id_departament_delete').val(d[0]['id_departament']);$('#short_dept_name_delete').val(d[0]['short_dept_name']);$('#full_dept_name_delete').val(d[0]['full_dept_name']);$('#id_chief_delete').val(d[0]['id_chief']);
                     $('#modal_delete').modal();
                     idDel = d[0]['id_departament'];
-                
-                }function deletex(id) {
+
+                }function _delete(id) {
                     var datos = {
                         id_departament: id
                     };
@@ -371,7 +343,7 @@ $(document).ready(function () {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }function alertas(mensaje, tipo) {
                     $.notify({
                         // options

@@ -1,4 +1,4 @@
-<div class='modal_create' id='modal_create' tabindex='-1' role='dialog'>
+<div class='modal' id='modal_create' tabindex='-1' role='dialog'>
                         <div class='modal-dialog' role='document'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
@@ -9,16 +9,16 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='tb_sub_departaments_create'>
+            <form id='tb_sub_departaments_create' name='tb_sub_departaments_create'>
                 <div class='form-group'>
                     <label for='short_sub_dept_name_create'>short_sub_dept_name</label>
-                    <input type='text' id= 'short_sub_dept_name_create' class='form-control'>
+                    <input type='text' id= 'short_sub_dept_name_create' name= 'short_sub_dept_name_create' class='form-control'>
                 </div><div class='form-group'>
                     <label for='sub_dept_name_create'>sub_dept_name</label>
-                    <input type='text' id= 'sub_dept_name_create' class='form-control'>
+                    <input type='text' id= 'sub_dept_name_create' name= 'sub_dept_name_create' class='form-control'>
                 </div><div class='form-group'>
                     <label for='id_departament_create'>id_departament</label>
-                    <select  id= 'id_departament_create' class='form-control'></select>
+                    <select  id= 'id_departament_create' name= 'id_departament_create' class='form-control'></select>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_create' class='btn btn-primary'>Registrar</button>

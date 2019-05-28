@@ -7,45 +7,33 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_switch_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_good_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_src_sub_dept_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_dest_sub_dept_update: {
-                        required: true, 
-                        
+                             required:true
                     },date_of_change_update: {
-                        required: true, 
-                        
+                             required:true
                     },reason_for_switch_update: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_switch_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_switch_update',
                     },id_good_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_update',
                     },id_src_sub_dept_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_src_sub_dept_update',
                     },id_dest_sub_dept_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_dest_sub_dept_update',
                     },date_of_change_update: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_of_change_update',
                     },reason_for_switch_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Reason_for_switch_update',
                     },
                             },
                             honkeyup: false,
@@ -71,46 +59,30 @@ $(document).ready(function () {
                             validClass: 'valid',
                             rules:
                             {
-                                id_switch_create: {
-                        required: true, 
-                        
-                    },id_good_create: {
-                        required: true, 
-                        
+                                id_good_create: {
+                             required:true
                     },id_src_sub_dept_create: {
-                        required: true, 
-                        
+                             required:true
                     },id_dest_sub_dept_create: {
-                        required: true, 
-                        
+                             required:true
                     },date_of_change_create: {
-                        required: true, 
-                        
+                             required:true
                     },reason_for_switch_create: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
-                                id_switch_create: {
-                        required: true, 
-                        
-                    },id_good_create: {
-                        required: true, 
-                        
+                                id_good_create: {
+                        required:'Ingrese Id_good_create',
                     },id_src_sub_dept_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_src_sub_dept_create',
                     },id_dest_sub_dept_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_dest_sub_dept_create',
                     },date_of_change_create: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_of_change_create',
                     },reason_for_switch_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Reason_for_switch_create',
                     },
                             },
                             honkeyup: false,
@@ -137,51 +109,39 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_switch_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_good_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_src_sub_dept_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_dest_sub_dept_delete: {
-                        required: true, 
-                        
+                             required:true
                     },date_of_change_delete: {
-                        required: true, 
-                        
+                             required:true
                     },reason_for_switch_delete: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_switch_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_switch_delete',
                     },id_good_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_good_delete',
                     },id_src_sub_dept_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_src_sub_dept_delete',
                     },id_dest_sub_dept_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_dest_sub_dept_delete',
                     },date_of_change_delete: {
-                        required: true, 
-                        
+                        required:'Seleccione Date_of_change_delete',
                     },reason_for_switch_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Reason_for_switch_delete',
                     },
                             },
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                _delete(idDel)();
+                                _delete(idDel);
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -321,7 +281,7 @@ $(document).ready(function () {
                     $('#tblTabla').DataTable(options);
                 }function editx(id) {
                     var datos = {
-                        id_switch_update: id
+                        id_switch: id
                     };
                     $.post('main.php', { action: 'consult', dt: datos }, function(e) {
                         if (e.error) {
@@ -335,7 +295,7 @@ $(document).ready(function () {
                     $('#id_switch_update').val(d[0]['id_switch']);$('#id_good_update').val(d[0]['id_good']);$('#id_src_sub_dept_update').val(d[0]['id_src_sub_dept']);$('#id_dest_sub_dept_update').val(d[0]['id_dest_sub_dept']);$('#date_of_change_update').val(d[0]['date_of_change']);$('#reason_for_switch_update').val(d[0]['reason_for_switch']);
                     $('#modal_update').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -387,8 +347,8 @@ $(document).ready(function () {
                     $('#id_switch_delete').val(d[0]['id_switch']);$('#id_good_delete').val(d[0]['id_good']);$('#id_src_sub_dept_delete').val(d[0]['id_src_sub_dept']);$('#id_dest_sub_dept_delete').val(d[0]['id_dest_sub_dept']);$('#date_of_change_delete').val(d[0]['date_of_change']);$('#reason_for_switch_delete').val(d[0]['reason_for_switch']);
                     $('#modal_delete').modal();
                     idDel = d[0]['id_switch'];
-                
-                }function deletex(id) {
+
+                }function _delete(id) {
                     var datos = {
                         id_switch: id
                     };
@@ -407,7 +367,7 @@ $(document).ready(function () {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }function alertas(mensaje, tipo) {
                     $.notify({
                         // options

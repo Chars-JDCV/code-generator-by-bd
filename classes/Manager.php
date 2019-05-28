@@ -2,13 +2,15 @@
 require_once  getcwd() . '/../config/ConnectionManager.php';
 require_once getcwd() . '/generate-form.php';
 require_once getcwd() . '/generate-javascript.php';
+require_once getcwd() . '/generatemain.php';
+require_once getcwd() . '/generate-server.php';
 
 class Manager extends ConnectionManager
 {
-    private $create;
-    private $read;
-    private $update;
-    private $delete;
+    var $create="";
+    var $read="";
+    var $update="";
+    var $delete="";
     public function generate()
     {
         $db_name= 'sirdis';
@@ -58,14 +60,17 @@ class Manager extends ConnectionManager
         } catch (PDOExeption $th) {
             throw $th;
         }
-        //$this->generate_crud($table, $columns);
         $objform = new generate_form;
         $objjava = new generate_javascript;
+        $objmain = new generate_main;
+        $objserver = new generate_server;
         $objjava->generate_code_javascript($columns,$table);
         $objform->generate_code_form_update($columns,$table);
         $objform->generate_code_form_create($columns,$table);
         $objform->generate_code_form_delete($columns,$table);
         $objform->generate_code_form_read($columns,$table);
+        $objmain->generate_code_main($columns,$table);
+        $objserver->generate_code_server($columns,$table);
     }
     private function generate_crud($table, $columns)
     {

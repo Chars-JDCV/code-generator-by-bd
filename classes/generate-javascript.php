@@ -4,71 +4,75 @@ class generate_javascript
 {
 
     private $form_code;
-    public function generate_code_javascript($columns,$table)
+    public function generate_code_javascript($columns, $table)
     {
         $document = "";
-        $documentReady = $this->get_documentReady($columns,$table);
+        $documentReady = $this->get_documentReady($columns, $table);
         $documentReady = $documentReady . $this->get_method_catalog();
-        $documentReady = $documentReady . $this->get_method_getSelect($columns,$table);
+        $documentReady = $documentReady . $this->get_method_getSelect($columns, $table);
         $documentReady = $documentReady . $this->get_method_get();
         $documentReady = $documentReady . $this->get_method_FullSelect();
         $documentReady = $documentReady . $this->get_method_setSelect();
         $documentReady = $documentReady . $this->get_datatable($columns);
         $documentReady = $documentReady . $this->get_editx($columns);
         $documentReady = $documentReady . $this->get_setDatosModal($columns);
-        $documentReady = $documentReady . $this->get_update($columns,$table);
-        $documentReady = $documentReady . $this->get_create($columns,$table);
+        $documentReady = $documentReady . $this->get_update($columns, $table);
+        $documentReady = $documentReady . $this->get_create($columns, $table);
         $documentReady = $documentReady . $this->get_deletex($columns);
         $documentReady = $documentReady . $this->get_setMensajeModal($columns);
-        $documentReady = $documentReady . $this->get_delete($columns,$table);
+        $documentReady = $documentReady . $this->get_delete($columns, $table);
         $documentReady = $documentReady . $this->get_cancel();
         $documentReady = $documentReady . $this->get_alert();
         $document = $documentReady;
         //formatt
         /*
-            $documentReady
-            {
-                $validation*
-                $datapicker*
-                $botones*
-                alertas('Bienvenido', 'info');*
-                get();*
-                getSelect();*
-                getCatalogo();*
-            }
-            $getCatalogo*
-            $setSelect*
-            $get*
-            $FullSelect*
-            $setSelect*
-            $setDataTable*
-            $editx*
-            $setDatosModal*
-            $update*
-            $save*
-            $deletex*
-            $setMensajeModal*
-            $cancel*
-            $alertas*
-        */
-        $this->create_folder_and_main($table,$document);
+        $documentReady
+        {
+        $validation*
+        $datapicker*
+        $botones*
+        alertas('Bienvenido', 'info');*
+        get();*
+        getSelect();*
+        getCatalogo();*
+        }
+        $getCatalogo*
+        $setSelect*
+        $get*
+        $FullSelect*
+        $setSelect*
+        $setDataTable*
+        $editx*
+        $setDatosModal*
+        $update*
+        $save*
+        $deletex*
+        $setMensajeModal*
+        $cancel*
+        $alertas*
+         */
+        $this->create_folder_and_main($table, $document);
     }
-    private function get_validationCode($columns,$table,$typeform)
+    private function get_validationCode($columns, $table, $typeform)
     {
-        $messagevalidation ="";
-        $requirevalidation ="";
+        $messagevalidation = "";
+        $requirevalidation = "";
+        $num = 0;
+        if ($typeform == '_create') {
+            $num = 1;
+        }
         try {
-            for ($i=0; $i < count($columns['name']); $i++) { 
-                $messagevalidation = $messagevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
-                $requirevalidation = $requirevalidation . $this->get_menssages_valition($columns['name'][$i].$typeform,$columns['type'][$i]);
+            for ($i = $num; $i < count($columns['name']); $i++) {
+                $messagevalidation = $messagevalidation . $this->get_menssages_valition($columns['name'][$i] . $typeform, $columns['type'][$i]);
+                $requirevalidation = $requirevalidation . $this->get_require_valition($columns['name'][$i] . $typeform, $columns['type'][$i]);
             }
         } catch (PDOExeption $e) {
             throw $e;
         }
-        $method  =str_replace("_", "", $typeform);
-        return  $this->code_validation($table,$requirevalidation,$messagevalidation,$typeform,$typeform);
+        $method = str_replace("_", "", $typeform);
+        return $this->code_validation($table, $requirevalidation, $messagevalidation, $typeform, $typeform);
     }
-    public function create_folder_and_main($table,$document)
+    public function create_folder_and_main($table, $document)
     {
         if (strpos($table, '_')) {
             $tables = explode("_", $table);
@@ -82,10 +86,10 @@ class generate_javascript
         fwrite($file, $document);
         fclose($file);
     }
-    private function get_document($typeform,$modal,$table)
+    private function get_document($typeform, $modal, $table)
     {
         //mandar a llamar la creacion de validacion, eventos de botones, datapick
-        $button =  $this->get_boton($typeform,true,$modal,$table);
+        $button = $this->get_boton($typeform, true, $modal, $table);
         $value = "$(document).ready(function () {
                         $validation
                         $botones
@@ -97,15 +101,15 @@ class generate_javascript
                     });";
         return $value;
     }
-    private function get_documentReady($columns,$table)
+    private function get_documentReady($columns, $table)
     {
         //mandar a llamar la creacion de validacion, eventos de botones, datapick
-        $validation = $this->get_validationCode($columns,$table,'_update');
-        $validation .= $this->get_validationCode($columns,$table,'_create');
-        $validation .= $this->get_validationCode($columns,$table,'_delete');
-        $button =  $this->get_button('_update',$table);
-        $button .=  $this->get_button('_create',$table);
-        $button .=  $this->get_button('_delete',$table);
+        $validation = $this->get_validationCode($columns, $table, '_update');
+        $validation .= $this->get_validationCode($columns, $table, '_create');
+        $validation .= $this->get_validationCode($columns, $table, '_delete');
+        $button = $this->get_button('_update', $table);
+        $button .= $this->get_button('_create', $table);
+        $button .= $this->get_button('_delete', $table);
         $datapicker = $this->get_datapicker($columns);
         $value = "$(document).ready(function () {
                         $validation
@@ -121,10 +125,10 @@ class generate_javascript
                     });";
         return $value;
     }
-    private function get_button($typeform,$table)
+    private function get_button($typeform, $table)
     {
-        $button ="";
-            $button = "$('#btn$typeform').click(function () {
+        $button = "";
+        $button = "$('#btn$typeform').click(function () {
                 $('#$table$typeform').validate();
             });";
         return $button;
@@ -132,23 +136,23 @@ class generate_javascript
     private function get_datapicker($columns)
     {
         $value = "";
-        for ($i=0; $i < count($columns['type']); $i++) { 
+        for ($i = 0; $i < count($columns['type']); $i++) {
             if ($columns['type'] == 'DATE' ||
                 $columns['type'] == 'DATETIME' ||
                 $columns['type'] == 'TIMESTAMP' ||
                 $columns['type'] == 'TIME' ||
                 $columns['type'] == 'YEAR') {
-                $value+=$this->set_datapicker($columns['name'][$i],'_update');
-                $value+=$this->set_datapicker($columns['name'][$i],'_create');
-                $value+=$this->set_datapicker($columns['name'][$i],'_delete');
+                $value += $this->set_datapicker($columns['name'][$i], '_update');
+                $value += $this->set_datapicker($columns['name'][$i], '_create');
+                $value += $this->set_datapicker($columns['name'][$i], '_delete');
             }
         }
         return $value;
     }
-    private function set_datapicker($name,$typeform)
+    private function set_datapicker($name, $typeform)
     {
-        $value ="";
-            $value = "$('#$name$typeform').datepicker({
+        $value = "";
+        $value = "$('#$name$typeform').datepicker({
                 language: 'es'
             });";
         return $value;
@@ -194,15 +198,15 @@ class generate_javascript
             case 'NUMERIC':
                 $type = 'number';
                 break;
-            
+
             case 'DATE':
                 $type = 'date';
                 break;
             case 'DATETIME':
-                $type = 'datetime';
+                $type = 'date';
                 break;
             case 'TIMESTAMP':
-                $type = 'datetime';
+                $type = 'date';
                 break;
             case 'TIME':
                 $type = 'date';
@@ -210,8 +214,8 @@ class generate_javascript
             case 'YEAR':
                 $type = 'date';
                 break;
-                
-                case 'CHAR':
+
+            case 'CHAR':
                 $type = 'text';
                 break;
             case 'VARCHAR':
@@ -252,10 +256,13 @@ class generate_javascript
         }
         return $type;
     }
-    private function code_validation($table,$rules,$messages,$typeform,$method)
+    private function code_validation($table, $rules, $messages, $typeform, $method)
     {
-        if ($typeform=='_delete') {
+        if ($typeform == '_delete') {
             $method = '_delete(idDel)';
+        } else {
+            $method = $method.'()';
+
         }
         $validation = "$('#$table$typeform').validate(
                         {
@@ -273,7 +280,7 @@ class generate_javascript
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                $method();
+                                $method;
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -287,27 +294,39 @@ class generate_javascript
                             }
                         }
                     );";
-        return $validation;     
+        return $validation;
     }
-    private function get_menssages_valition($name,$type)
+    private function get_menssages_valition($name, $type)
     {
+        $message = "";
         $messagetype = "";
-        $message ="$name: {
-                        required: true, 
+        $nombre = $name;
+        $name = ucwords(strtolower($name));
+        if ($this->get_type($type)=='date') {
+            $messagetype = $messagetype . "required:'Seleccione $name',";
+            # code...
+        } else {
+            $messagetype = $messagetype . "required:'Ingrese $name',";
+        }
+        if ($type != '_create') {
+            $message = "$nombre: {
                         $messagetype
                     },";
+        }
         return $message;
     }
-    private function get_require_valition($name,$type)
+    private function get_require_valition($name, $type)
     {
-        $requiere = "";
-        $camps ="$name: {
-                        required: true, 
-                        $requiere
+        $message = "";
+        $messagetype = "";
+        if ($type != '_create') {
+            $message = "$name: {
+                             required:true
                     },";
-        return $camps;
+        }
+        return $message;
     }
-    
+
     private function get_method_get()
     {
         $method_get = "function get() {
@@ -361,39 +380,39 @@ class generate_javascript
         }";
         return $method_setSelect;
     }
-    private function get_method_getSelect($columns,$table)
+    private function get_method_getSelect($columns, $table)
     {
-        $get_select= "";
-        for ($i=1; $i < count($columns['name']); $i++) { 
-            $get_select = $get_select . $this->get_getSelect($columns['name'][$i],'_update',$table,$columns['key'][$i]);
-            $get_select = $get_select . $this->get_getSelect($columns['name'][$i],'_create',$table,$columns['key'][$i]);
-            $get_select = $get_select . $this->get_getSelect($columns['name'][$i],'_delete',$table,$columns['key'][$i]);
+        $get_select = "";
+        for ($i = 1; $i < count($columns['name']); $i++) {
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_update', $table, $columns['key'][$i]);
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_create', $table, $columns['key'][$i]);
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_delete', $table, $columns['key'][$i]);
         }
         $method_getSelect = "function getSelect() {
             $get_select
         }";
         return $method_getSelect;
     }
-    private function get_getSelect($column,$typeform,$table,$key)
+    private function get_getSelect($column, $typeform, $table, $key)
     {
         $value = "";
-        if ($key=='MUL' || $key=='PRI') {
+        if ($key == 'MUL' || $key == 'PRI') {
             $value = "FullSelect('#$column$typeform', '$table');";
         }
         return $value;
     }
     private function get_datatable($columns)
     {
-        $col =  '';
-        for ($i=0; $i < count($columns['name']); $i++) {
+        $col = '';
+        for ($i = 0; $i < count($columns['name']); $i++) {
             //echo'<br>'. (count($columns['name'])-1) . $i.'</br>';
-            if (count($columns['name']) -1 == $i) {
+            if (count($columns['name']) - 1 == $i) {
                 $col .= $i;
             } else {
-                $col .= $i .',';
+                $col .= $i . ',';
             }
         }
-        $value= "";
+        $value = "";
         $value = "function setDataTable(c, d) {
                     var options = {
                         dom: 'Bfrtip',
@@ -474,11 +493,11 @@ class generate_javascript
     }
     private function get_editx($columns)
     {
-        $camps =  '';
+        $camps = '';
         $typeform = '_update';
         $name = $columns['name'][0];
-        $camps = $name.$typeform.': id';
-        $value= "function editx(id) {
+        $camps = $name .': id';
+        $value = "function editx(id) {
                     var datos = {
                         $camps
                     };
@@ -496,24 +515,23 @@ class generate_javascript
 
     private function get_setDatosModal($columns)
     {
-        $camps =  '';
+        $camps = '';
         $typeform = '_update';
-        for ($i=0; $i < count($columns['name']); $i++) { 
+        for ($i = 0; $i < count($columns['name']); $i++) {
             $key = $columns['type'][$i];
             $name = $columns['name'][$i];
-            if ($key=='MUL' || $key=='PRI') {
-                $camps = $camps. "seleccionarSelect('#$name$typeform', d[0]['$name']);";
+            if ($key == 'MUL' || $key == 'PRI') {
+                $camps = $camps . "seleccionarSelect('#$name$typeform', d[0]['$name']);";
+            } else {
+                $camps = $camps . "$('#$name$typeform').val(d[0]['$name']);";
             }
-            else {
-                $camps = $camps."$('#$name$typeform').val(d[0]['$name']);";
-            }
-            
+
         }
-        $value= "function setDatosModal(d) {
+        $value = "function setDatosModal(d) {
                     $camps
                     $('#modal$typeform').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -523,22 +541,21 @@ class generate_javascript
                 }";
         return $value;
     }
-    private function get_update($columns,$table)
+    private function get_update($columns, $table)
     {
-        $camps =  '';
+        $camps = '';
         $typeform = '_update';
-        for ($i=0; $i < count($columns['name']); $i++) { 
+        for ($i = 0; $i < count($columns['name']); $i++) {
             $key = $columns['type'][$i];
             $name = $columns['name'][$i];
-            if ($i == (count($columns['name'])) -1 ) {
-                $camps = $camps."$name: $('#$name$typeform').val()";
+            if ($i == (count($columns['name'])) - 1) {
+                $camps = $camps . "$name: $('#$name$typeform').val()";
+            } else {
+                $camps = $camps . "$name: $('#$name$typeform').val(),";
             }
-            else {
-                $camps = $camps."$name: $('#$name$typeform').val(),";
-            }
-            
+
         }
-        $value= "function _update() {
+        $value = "function _update() {
                     var datos = {
                         $camps
                     };
@@ -555,22 +572,21 @@ class generate_javascript
                 }";
         return $value;
     }
-    private function get_create($columns,$table)
+    private function get_create($columns, $table)
     {
-        $camps =  '';
+        $camps = '';
         $typeform = '_create';
-        for ($i=1; $i < count($columns['name']); $i++) { 
+        for ($i = 1; $i < count($columns['name']); $i++) {
             $key = $columns['type'][$i];
             $name = $columns['name'][$i];
-            if ($i == (count($columns['name'])) -1 ) {
-                $camps = $camps."$name: $('#$name$typeform').val()";
+            if ($i == (count($columns['name'])) - 1) {
+                $camps = $camps . "$name: $('#$name$typeform').val()";
+            } else {
+                $camps = $camps . "$name: $('#$name$typeform').val(),";
             }
-            else {
-                $camps = $camps."$name: $('#$name$typeform').val(),";
-            }
-            
+
         }
-        $value= "function _create() {
+        $value = "function _create() {
                     var datos = {
                         $camps
                     };
@@ -589,11 +605,11 @@ class generate_javascript
     }
     private function get_deletex($columns)
     {
-        $camps =  '';
+        $camps = '';
         $typeform = '_create';
         $name = $columns['name'][0];
-        $camps = $name.': id';
-        $value= "function deletex(id) {
+        $camps = $name . ': id';
+        $value = "function deletex(id) {
                     var datos = {
                         $camps
                     };
@@ -611,35 +627,34 @@ class generate_javascript
     }
     private function get_setMensajeModal($columns)
     {
-        $camps =  '';
+        $camps = '';
         $typeform = '_delete';
         $message = "";
         $idDel = $columns['name'][0];
-        for ($i=0; $i < count($columns['name']); $i++) { 
+        for ($i = 0; $i < count($columns['name']); $i++) {
             $key = $columns['type'][$i];
             $name = $columns['name'][$i];
-            if ($key=='MUL' || $key=='PRI') {
-                $camps = $camps. "seleccionarSelect('#$name$typeform', d[0]['$name']);";
-            }
-            else {
-                $camps = $camps."$('#$name$typeform').val(d[0]['$name']);";
+            if ($key == 'MUL' || $key == 'PRI') {
+                $camps = $camps . "seleccionarSelect('#$name$typeform', d[0]['$name']);";
+            } else {
+                $camps = $camps . "$('#$name$typeform').val(d[0]['$name']);";
             }
         }
-        $value= "function setMensajeModal(d) {
+        $value = "function setMensajeModal(d) {
                     $camps
                     $('#modal$typeform').modal();
                     idDel = d[0]['$idDel'];
-                
+
                 }";
         return $value;
     }
-    private function get_delete($columns,$table)
+    private function get_delete($columns, $table)
     {
-        $camps =  '';
+        $camps = '';
         $typeform = '_delete';
         $name = $columns['name'][0];
-        $camps = $name.': id';
-        $value= "function deletex(id) {
+        $camps = $name . ': id';
+        $value = "function $typeform(id) {
                     var datos = {
                         $camps
                     };
@@ -659,18 +674,18 @@ class generate_javascript
     }
     private function get_cancel()
     {
-        $value= "function cancelar(form) {
+        $value = "function cancelar(form) {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }";
         return $value;
     }
     private function get_alert()
     {
-        
-        $value= "function alertas(mensaje, tipo) {
+
+        $value = "function alertas(mensaje, tipo) {
                     $.notify({
                         // options
                         message: mensaje
@@ -683,4 +698,3 @@ class generate_javascript
         return $value;
     }
 }
- ?>

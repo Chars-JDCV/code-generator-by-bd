@@ -1,4 +1,4 @@
-<div class='modal_create' id='modal_create' tabindex='-1' role='dialog'>
+<div class='modal' id='modal_create' tabindex='-1' role='dialog'>
                         <div class='modal-dialog' role='document'>
                             <div class='modal-content'>
                                 <div class='modal-header'>
@@ -9,10 +9,10 @@
                                 </div>
                                 <div class='modal-body'> 
                                     
-            <form id='tb_titles_create'>
+            <form id='tb_titles_create' name='tb_titles_create'>
                 <div class='form-group'>
                     <label for='title_create'>title</label>
-                    <input type='text' id= 'title_create' class='form-control'>
+                    <input type='text' id= 'title_create' name= 'title_create' class='form-control'>
                 </div>
                 <div class='modal-footer'>
                     <button id='btn_create' class='btn btn-primary'>Registrar</button>

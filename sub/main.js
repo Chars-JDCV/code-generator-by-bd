@@ -7,33 +7,25 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_sub_dept_update: {
-                        required: true, 
-                        
+                             required:true
                     },short_sub_dept_name_update: {
-                        required: true, 
-                        
+                             required:true
                     },sub_dept_name_update: {
-                        required: true, 
-                        
+                             required:true
                     },id_departament_update: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_sub_dept_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_sub_dept_update',
                     },short_sub_dept_name_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Short_sub_dept_name_update',
                     },sub_dept_name_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Sub_dept_name_update',
                     },id_departament_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_departament_update',
                     },
                             },
                             honkeyup: false,
@@ -59,34 +51,22 @@ $(document).ready(function () {
                             validClass: 'valid',
                             rules:
                             {
-                                id_sub_dept_create: {
-                        required: true, 
-                        
-                    },short_sub_dept_name_create: {
-                        required: true, 
-                        
+                                short_sub_dept_name_create: {
+                             required:true
                     },sub_dept_name_create: {
-                        required: true, 
-                        
+                             required:true
                     },id_departament_create: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
-                                id_sub_dept_create: {
-                        required: true, 
-                        
-                    },short_sub_dept_name_create: {
-                        required: true, 
-                        
+                                short_sub_dept_name_create: {
+                        required:'Ingrese Short_sub_dept_name_create',
                     },sub_dept_name_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Sub_dept_name_create',
                     },id_departament_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_departament_create',
                     },
                             },
                             honkeyup: false,
@@ -113,39 +93,31 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_sub_dept_delete: {
-                        required: true, 
-                        
+                             required:true
                     },short_sub_dept_name_delete: {
-                        required: true, 
-                        
+                             required:true
                     },sub_dept_name_delete: {
-                        required: true, 
-                        
+                             required:true
                     },id_departament_delete: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_sub_dept_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_sub_dept_delete',
                     },short_sub_dept_name_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Short_sub_dept_name_delete',
                     },sub_dept_name_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Sub_dept_name_delete',
                     },id_departament_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_departament_delete',
                     },
                             },
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                _delete(idDel)();
+                                _delete(idDel);
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -285,7 +257,7 @@ $(document).ready(function () {
                     $('#tblTabla').DataTable(options);
                 }function editx(id) {
                     var datos = {
-                        id_sub_dept_update: id
+                        id_sub_dept: id
                     };
                     $.post('main.php', { action: 'consult', dt: datos }, function(e) {
                         if (e.error) {
@@ -299,7 +271,7 @@ $(document).ready(function () {
                     $('#id_sub_dept_update').val(d[0]['id_sub_dept']);$('#short_sub_dept_name_update').val(d[0]['short_sub_dept_name']);$('#sub_dept_name_update').val(d[0]['sub_dept_name']);$('#id_departament_update').val(d[0]['id_departament']);
                     $('#modal_update').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -351,8 +323,8 @@ $(document).ready(function () {
                     $('#id_sub_dept_delete').val(d[0]['id_sub_dept']);$('#short_sub_dept_name_delete').val(d[0]['short_sub_dept_name']);$('#sub_dept_name_delete').val(d[0]['sub_dept_name']);$('#id_departament_delete').val(d[0]['id_departament']);
                     $('#modal_delete').modal();
                     idDel = d[0]['id_sub_dept'];
-                
-                }function deletex(id) {
+
+                }function _delete(id) {
                     var datos = {
                         id_sub_dept: id
                     };
@@ -371,7 +343,7 @@ $(document).ready(function () {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }function alertas(mensaje, tipo) {
                     $.notify({
                         // options

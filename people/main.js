@@ -7,33 +7,25 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_person_update: {
-                        required: true, 
-                        
+                             required:true
                     },person_name_update: {
-                        required: true, 
-                        
+                             required:true
                     },card_id_update: {
-                        required: true, 
-                        
+                             required:true
                     },is_lent_to_update: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_person_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_person_update',
                     },person_name_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Person_name_update',
                     },card_id_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Card_id_update',
                     },is_lent_to_update: {
-                        required: true, 
-                        
+                        required:'Ingrese Is_lent_to_update',
                     },
                             },
                             honkeyup: false,
@@ -59,34 +51,22 @@ $(document).ready(function () {
                             validClass: 'valid',
                             rules:
                             {
-                                id_person_create: {
-                        required: true, 
-                        
-                    },person_name_create: {
-                        required: true, 
-                        
+                                person_name_create: {
+                             required:true
                     },card_id_create: {
-                        required: true, 
-                        
+                             required:true
                     },is_lent_to_create: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
-                                id_person_create: {
-                        required: true, 
-                        
-                    },person_name_create: {
-                        required: true, 
-                        
+                                person_name_create: {
+                        required:'Ingrese Person_name_create',
                     },card_id_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Card_id_create',
                     },is_lent_to_create: {
-                        required: true, 
-                        
+                        required:'Ingrese Is_lent_to_create',
                     },
                             },
                             honkeyup: false,
@@ -113,39 +93,31 @@ $(document).ready(function () {
                             rules:
                             {
                                 id_person_delete: {
-                        required: true, 
-                        
+                             required:true
                     },person_name_delete: {
-                        required: true, 
-                        
+                             required:true
                     },card_id_delete: {
-                        required: true, 
-                        
+                             required:true
                     },is_lent_to_delete: {
-                        required: true, 
-                        
+                             required:true
                     },
                             },
                             messages:
                             {
                                 id_person_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Id_person_delete',
                     },person_name_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Person_name_delete',
                     },card_id_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Card_id_delete',
                     },is_lent_to_delete: {
-                        required: true, 
-                        
+                        required:'Ingrese Is_lent_to_delete',
                     },
                             },
                             honkeyup: false,
                             submitHandler: function () {
                                 $('div.error').hide();
-                                _delete(idDel)();
+                                _delete(idDel);
                             },
                             honkeyup: false,
                             highlight: function (element, required) {
@@ -285,7 +257,7 @@ $(document).ready(function () {
                     $('#tblTabla').DataTable(options);
                 }function editx(id) {
                     var datos = {
-                        id_person_update: id
+                        id_person: id
                     };
                     $.post('main.php', { action: 'consult', dt: datos }, function(e) {
                         if (e.error) {
@@ -299,7 +271,7 @@ $(document).ready(function () {
                     $('#id_person_update').val(d[0]['id_person']);$('#person_name_update').val(d[0]['person_name']);$('#card_id_update').val(d[0]['card_id']);$('#is_lent_to_update').val(d[0]['is_lent_to']);
                     $('#modal_update').modal();
                 }
-                
+
                 function seleccionarSelect(nameselect, valor) {
                     $(nameselect).find('option').each(function(index, element) {
                         if (element.value == valor) {
@@ -351,8 +323,8 @@ $(document).ready(function () {
                     $('#id_person_delete').val(d[0]['id_person']);$('#person_name_delete').val(d[0]['person_name']);$('#card_id_delete').val(d[0]['card_id']);$('#is_lent_to_delete').val(d[0]['is_lent_to']);
                     $('#modal_delete').modal();
                     idDel = d[0]['id_person'];
-                
-                }function deletex(id) {
+
+                }function _delete(id) {
                     var datos = {
                         id_person: id
                     };
@@ -371,7 +343,7 @@ $(document).ready(function () {
                     $('#' + form)[0].reset();
                     var validator = $('#' + form).validate();
                     validator.resetForm();
-                    return false;   
+                    return false;
                 }function alertas(mensaje, tipo) {
                     $.notify({
                         // options
