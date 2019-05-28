@@ -259,7 +259,7 @@ $(document).ready(function () {
                                 var catalog = URLactual.split('/')
                                 document.getElementById('Catalogo').innerHTML='Catálogo de '+ catalog[catalog.length -2];
                             }function getSelect() {
-            FullSelect('#id_sub_departament_update', 'tb_goods');FullSelect('#id_sub_departament_create', 'tb_goods');FullSelect('#id_sub_departament_delete', 'tb_goods');
+            FullSelect('#id_sub_departament_update', '');FullSelect('#id_sub_departament_create', '');FullSelect('#id_sub_departament_delete', '');
         }function get() {
                         $.post('main.php', { action: 'get' }, function (e) {
                             if (e.error || !e.data) {

@@ -175,7 +175,7 @@ $(document).ready(function () {
                                 var catalog = URLactual.split('/')
                                 document.getElementById('Catalogo').innerHTML='Catálogo de '+ catalog[catalog.length -2];
                             }function getSelect() {
-            FullSelect('#id_person_update', 'tb_lendings');FullSelect('#id_person_create', 'tb_lendings');FullSelect('#id_person_delete', 'tb_lendings');FullSelect('#id_good_update', 'tb_lendings');FullSelect('#id_good_create', 'tb_lendings');FullSelect('#id_good_delete', 'tb_lendings');
+            FullSelect('#id_person_update', 'tb_people_lendings');FullSelect('#id_person_create', 'tb_people_lendings');FullSelect('#id_person_delete', 'tb_people_lendings');FullSelect('#id_good_update', 'tb_goods');FullSelect('#id_good_create', 'tb_goods');FullSelect('#id_good_delete', 'tb_goods');
         }function get() {
                         $.post('main.php', { action: 'get' }, function (e) {
                             if (e.error || !e.data) {

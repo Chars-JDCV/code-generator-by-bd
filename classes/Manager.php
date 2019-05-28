@@ -64,7 +64,7 @@ class Manager extends ConnectionManager
         $objjava = new generate_javascript;
         $objmain = new generate_main;
         $objserver = new generate_server;
-        $objjava->generate_code_javascript($columns,$table);
+        $objjava->generate_code_javascript($columns,$table,$dbname);
         $objform->generate_code_form_update($columns,$table);
         $objform->generate_code_form_create($columns,$table);
         $objform->generate_code_form_delete($columns,$table);

@@ -1,15 +1,17 @@
 <?php
 header("Content-Type: text/html; charset=utf-8");
-class generate_javascript
+require_once  getcwd() . '/../config/ConnectionManager.php';
+
+class generate_javascript extends ConnectionManager
 {
 
     private $form_code;
-    public function generate_code_javascript($columns, $table)
+    public function generate_code_javascript($columns, $table,$dbname)
     {
         $document = "";
         $documentReady = $this->get_documentReady($columns, $table);
         $documentReady = $documentReady . $this->get_method_catalog();
-        $documentReady = $documentReady . $this->get_method_getSelect($columns, $table);
+        $documentReady = $documentReady . $this->get_method_getSelect($columns, $table,$dbname);
         $documentReady = $documentReady . $this->get_method_get();
         $documentReady = $documentReady . $this->get_method_FullSelect();
         $documentReady = $documentReady . $this->get_method_setSelect();
@@ -380,26 +382,44 @@ class generate_javascript
         }";
         return $method_setSelect;
     }
-    private function get_method_getSelect($columns, $table)
+    private function get_method_getSelect($columns, $table,$dbname)
     {
         $get_select = "";
         for ($i = 1; $i < count($columns['name']); $i++) {
-            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_update', $table, $columns['key'][$i]);
-            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_create', $table, $columns['key'][$i]);
-            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_delete', $table, $columns['key'][$i]);
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_update', $table, $columns['key'][$i],$dbname);
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_create', $table, $columns['key'][$i],$dbname);
+            $get_select = $get_select . $this->get_getSelect($columns['name'][$i], '_delete', $table, $columns['key'][$i],$dbname);
         }
         $method_getSelect = "function getSelect() {
             $get_select
         }";
         return $method_getSelect;
     }
-    private function get_getSelect($column, $typeform, $table, $key)
+    private function get_getSelect($column, $typeform, $table, $key,$dbname)
     {
         $value = "";
         if ($key == 'MUL' || $key == 'PRI') {
+            //
+            $table = $this-> get_getSelectTable($dbname,$column);
             $value = $value. "FullSelect('#$column$typeform', '$table');";
         }
         return $value;
+    }
+    private function get_getSelectTable($dbname,$name)
+    {
+        $tablename = "";
+        $sth = "SELECT TABLE_NAME FROM information_schema.columns WHERE table_schema='$dbname' AND COLUMN_KEY ='PRI' AND COLUMN_NAME = '$name'";
+        $cnx = $this->connectSqlSrv();
+        $sth = $cnx->prepare($sth);
+        $sth->execute();
+        if ($sth->rowCount()) {
+            while ($row = $sth->fetch(PDO::FETCH_ASSOC)) 
+            {
+                $tablename =$row['TABLE_NAME'];
+            }
+        }
+        
+        return $tablename;
     }
     private function get_datatable($columns)
     {

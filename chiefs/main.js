@@ -139,7 +139,7 @@ $(document).ready(function () {
                                 var catalog = URLactual.split('/')
                                 document.getElementById('Catalogo').innerHTML='Catálogo de '+ catalog[catalog.length -2];
                             }function getSelect() {
-            FullSelect('#id_title_update', 'tb_chiefs');FullSelect('#id_title_create', 'tb_chiefs');FullSelect('#id_title_delete', 'tb_chiefs');
+            FullSelect('#id_title_update', 'tb_titles');FullSelect('#id_title_create', 'tb_titles');FullSelect('#id_title_delete', 'tb_titles');
         }function get() {
                         $.post('main.php', { action: 'get' }, function (e) {
                             if (e.error || !e.data) {

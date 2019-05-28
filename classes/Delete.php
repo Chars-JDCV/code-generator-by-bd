@@ -158,8 +158,7 @@
                             $retval['column'] = 'id_good-id_sub_departament';
                             $retval['query'] = "SELECT id_good,id_sub_departament FROM  $variable";
                             return   $retval;
-                            break;
-                        case 'tb_sub_departaments':
+                            break;case 'tb_sub_departaments':
                             $retval['id'] = 'id_sub_dept';
                             $retval['nombre'] = 'short_sub_dept_name';
                             $retval['column'] = 'id_sub_dept-short_sub_dept_name';

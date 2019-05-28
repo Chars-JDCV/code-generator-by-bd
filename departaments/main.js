@@ -151,7 +151,7 @@ $(document).ready(function () {
                                 var catalog = URLactual.split('/')
                                 document.getElementById('Catalogo').innerHTML='Catálogo de '+ catalog[catalog.length -2];
                             }function getSelect() {
-            FullSelect('#id_chief_update', 'tb_departaments');FullSelect('#id_chief_create', 'tb_departaments');FullSelect('#id_chief_delete', 'tb_departaments');
+            FullSelect('#id_chief_update', 'tb_chiefs');FullSelect('#id_chief_create', 'tb_chiefs');FullSelect('#id_chief_delete', 'tb_chiefs');
         }function get() {
                         $.post('main.php', { action: 'get' }, function (e) {
                             if (e.error || !e.data) {

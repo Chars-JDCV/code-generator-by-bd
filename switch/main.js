@@ -175,7 +175,7 @@ $(document).ready(function () {
                                 var catalog = URLactual.split('/')
                                 document.getElementById('Catalogo').innerHTML='Catálogo de '+ catalog[catalog.length -2];
                             }function getSelect() {
-            FullSelect('#id_good_update', 'tb_switch_good_depts');FullSelect('#id_good_create', 'tb_switch_good_depts');FullSelect('#id_good_delete', 'tb_switch_good_depts');FullSelect('#id_src_sub_dept_update', 'tb_switch_good_depts');FullSelect('#id_src_sub_dept_create', 'tb_switch_good_depts');FullSelect('#id_src_sub_dept_delete', 'tb_switch_good_depts');FullSelect('#id_dest_sub_dept_update', 'tb_switch_good_depts');FullSelect('#id_dest_sub_dept_create', 'tb_switch_good_depts');FullSelect('#id_dest_sub_dept_delete', 'tb_switch_good_depts');
+            FullSelect('#id_good_update', 'tb_goods');FullSelect('#id_good_create', 'tb_goods');FullSelect('#id_good_delete', 'tb_goods');FullSelect('#id_src_sub_dept_update', '');FullSelect('#id_src_sub_dept_create', '');FullSelect('#id_src_sub_dept_delete', '');FullSelect('#id_dest_sub_dept_update', '');FullSelect('#id_dest_sub_dept_create', '');FullSelect('#id_dest_sub_dept_delete', '');
         }function get() {
                         $.post('main.php', { action: 'get' }, function (e) {
                             if (e.error || !e.data) {
