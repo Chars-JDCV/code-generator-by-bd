@@ -19,6 +19,13 @@ include_once '../menu.php';
                         </select>
                     </div>
                     <div class="form-group col-md-5">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="option_table" value="option">
+                            <label class="form-check-label" for="option_table">Advanced Option</label>
+                        </div>
+                        <input type='button' id='btn_generate' class='btn btn-primary' value='Generate Documents'>
+                    </div>
+                    <div id='div_table' class="form-group col-md-5 d-none">
                         <label for="tables">Tables Name</label>
                         <select class="form-control" id="tables">
                         </select>
@@ -29,7 +36,7 @@ include_once '../menu.php';
                         </select>
                        
                     </div>
-                    <div class="form-group col-md-5">
+                    <div id='div_columns_option' class="form-group col-md-5  d-none">
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="checkbox" id="option" value="option">
                             <label class="form-check-label" for="option">Advanced Option</label>
@@ -43,9 +50,6 @@ include_once '../menu.php';
     </div>
 </body>
 <?php
-include 'create.php';
-include 'update.php';
-include 'delete.php';
 include '../foot.php';
 ?>
 <script src='main.js?v=6'></script>

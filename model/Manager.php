@@ -148,6 +148,35 @@ class Manager extends ConnectionManager
             throw $e;
         }
     }
+    public function create_document($dt)
+    {
+        $retval = array(
+            "data" => false,
+            "error" => false,
+            "r"=>array("c"=>array(),"d"=>array())
+        );
+        try
+        {
+            $sth = "SELECT TABLE_NAME
+                FROM INFORMATION_SCHEMA.TABLES 
+                WHERE TABLE_SCHEMA ='".$dt['database']."'";
+            $cnx = $this->connectSqlSrv();
+            $sth = $cnx->prepare($sth);
+            $sth->execute();
+            while ($row = $sth->fetch(PDO::FETCH_ASSOC)) 
+            {
+                array_push($table, $row['TABLE_NAME']);
+                $this->get_columns($dbname,$row['TABLE_NAME']);
+            }
+            $retval["data"] = true;
+        }
+        catch(PDOExeption $e)
+        {
+            $retval["error"] = true;
+            $retval["r"] = $e;
+        }
+        return json_encode($retval);
+    }
     private function get_tables($dbname)
     {
         $table = array();

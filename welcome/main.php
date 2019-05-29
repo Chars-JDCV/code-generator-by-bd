@@ -19,5 +19,9 @@ if (isset($_POST['action'])) {
             $obj = new Manager();
             echo $obj->create_document_table($_POST['dt']);
             break;
+        case 'create_document':
+            $obj = new Manager();
+            echo $obj->create_document($_POST['dt']);
+            break;
     }
 }

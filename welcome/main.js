@@ -2,8 +2,11 @@ $(document).ready(function() {
     $('#btn_tables').click(function() {
         create_document_table();
     });
-    $('#btn_columns').click(function() {
+    $('#btn_tables').click(function() {
         create_document_table();
+    });
+    $('#btn_generate').click(function() {
+        create_document();
     });
     alertas('Welcome', 'info');
     get_database();
@@ -25,6 +28,28 @@ $('#option').click(function() {
         $("#btn_tables").removeClass("d-none")
         $("#btn_columns").addClass("d-none")
             //return confirm("Are you sure?");
+    }
+});
+$('#option_table').click(function() {
+    if ($(this).is(':checked')) {
+        $("#div_table").removeClass("d-none")
+        $("#div_columns_option").removeClass("d-none")
+        $("#btn_generate").addClass("d-none")
+        if ($('#option').is(':checked')) {
+            $("#colums_name").removeClass("d-none")
+            $("#btn_tables").addClass("d-none")
+            $("#btn_columns").removeClass("d-none")
+        } else {
+            $("#colums_name").addClass("d-none")
+            $("#btn_tables").removeClass("d-none")
+            $("#btn_columns").addClass("d-none")
+        }
+    } else {
+        $("#div_table").addClass("d-none")
+        $("#div_columns_option").addClass("d-none")
+        $("#btn_generate").removeClass("d-none")
+        $("#btn_columns").addClass("d-none")
+        $("#colums_name").addClass("d-none")
     }
 });
 
@@ -82,9 +107,20 @@ function create_document_table() {
         database: $('#databases').val(),
         table: $('#tables').val()
     };
-    console.log(datos)
     $.post('main.php', { action: 'create_document_table', dt: datos }, function(e) {
-        console.log(e)
+        if (e.error || !e.data) {
+            alertas(e.r, 'danger');
+        } else {
+            alertas('Create Success', 'success');
+        }
+    });
+}
+
+function create_document() {
+    var datos = {
+        database: $('#databases').val(),
+    };
+    $.post('main.php', { action: 'create_document', dt: datos }, function(e) {
         if (e.error || !e.data) {
             alertas(e.r, 'danger');
         } else {
