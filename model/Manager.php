@@ -159,14 +159,14 @@ class Manager extends ConnectionManager
         {
             $sth = "SELECT TABLE_NAME
                 FROM INFORMATION_SCHEMA.TABLES 
-                WHERE TABLE_SCHEMA ='".$dt['database']."'";
+                WHERE TABLE_SCHEMA ='".$dt["database"]."'";
             $cnx = $this->connectSqlSrv();
             $sth = $cnx->prepare($sth);
             $sth->execute();
             while ($row = $sth->fetch(PDO::FETCH_ASSOC)) 
             {
-                array_push($table, $row['TABLE_NAME']);
-                $this->get_columns($dbname,$row['TABLE_NAME']);
+                array_push($retval, $row['TABLE_NAME']);
+                $this->get_columns($dt["database"],$row['TABLE_NAME']);
             }
             $retval["data"] = true;
         }
@@ -233,10 +233,10 @@ class Manager extends ConnectionManager
 function PRUEBAS()
 {
     $obj = new Manager;
-    $dt = array('database'=>'chat','table'=>'tb_chat');
-    $mostar = $obj->create_document_table($dt);
+    $dt = array('database'=>'sirdis','table'=>'tb_chat');
+    $mostar = $obj->create_document($dt);
     print_r($mostar);
     
 }
-//PRUEBAS();
+PRUEBAS();
  ?>
