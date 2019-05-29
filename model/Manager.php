@@ -238,5 +238,5 @@ function PRUEBAS()
     print_r($mostar);
     
 }
-PRUEBAS();
+//PRUEBAS();
  ?>
