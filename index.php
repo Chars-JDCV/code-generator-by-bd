@@ -1,4 +1,4 @@
 <?php
-header('Location: generate-queries/index.php');
+header('Location: welcome/index.php');
 die();
 ?>
