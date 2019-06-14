@@ -6,8 +6,7 @@ abstract class ConnectionManager
     {
         try {
             $hostname = "localhost";
-            $dbname = "kilometraje";
-            //$dbname = "sirdis";
+            $dbname = "sirdis";
             $username = "root";
             $pw = "";
             return $pdo = new PDO ("mysql:host=$hostname;dbname=$dbname","$username","$pw");
